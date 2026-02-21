@@ -1,7 +1,7 @@
 import React from 'react'
 import search from '../assets/search.png'
         
-const ClientsPanel = ({clients, onSelectClient, selectedClientId, loading}) => {
+const ClientsPanel = ({clients, onSelectClient, selectedClientId, loading,setClientFilter,filteredClients,clientFilter}) => {
 
 
 
@@ -11,13 +11,13 @@ const ClientsPanel = ({clients, onSelectClient, selectedClientId, loading}) => {
         <div className=' p-3'>
               <p className='font-semibold mb-4'>Clients</p>
        <div className="items-center bg-gray-100 border-1x mb-5 ">
-            <button className="px-4 py-1.5 text-sm font-medium bg-blue-400 text-white rounded-l shadow-sm ">
+            <button onClick={()=>{setClientFilter("ALL")}} className="px-4 py-1.5 text-sm font-medium bg-blue-400 text-white rounded-l shadow-sm ">
                 All
             </button>
-            <button className="px-4 py-1.5 text-sm font-medium text-gray-500  hover:bg-white/60 ">
+            <button onClick={()=>{setClientFilter("ACTIVE")}} className="px-4 py-1.5 text-sm font-medium text-gray-500  hover:bg-white/60 ">
                 Active
             </button>
-            <button className="px-4 py-1.5 text-sm font-medium text-gray-500  hover:bg-white/60 ">
+            <button onClick={()=>{setClientFilter("PAUSED")}} className="px-4 py-1.5 text-sm font-medium text-gray-500  hover:bg-white/60 ">
                 Paused
             </button>
         </div>
@@ -28,11 +28,15 @@ const ClientsPanel = ({clients, onSelectClient, selectedClientId, loading}) => {
         </div>
        
          <div className="clients-panel__list w-[320px] bg-gray-50 p-4 space-y-4">
-           {loading  ? ("Loading clients…") : clients.length === 0 ? (
+           {loading  ? ("Loading clients…") : clients.length === 0 ? (                     
             <div className="clients-panel__empty">
-            <p>No clients yet</p>
+                <p>No clients yet</p>
+                <p>Add your first client to get started</p>
+            </div>) : filteredClients.length === 0 ? (
+            <div className="clients-panel__empty">
+            <p>No {clientFilter} yet</p>
             <p>Add your first client to get started</p>
-           </div>) : ( clients.map((client)=>{
+           </div>) : ( filteredClients.map((client)=>{
         return <button  key={client.id} onClick={()=>{onSelectClient(client.id)}} className={`client-row border-2 mb-2 flex flex-1 ${client.id === selectedClientId ? "client-row--selected " : "" }`}>
                 <div >
                     {/* avatar or  placeholder */}
