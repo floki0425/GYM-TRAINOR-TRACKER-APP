@@ -1,0 +1,1 @@
+Trainer Tracker is a web-based client management system built for fitness coaches and personal trainers. It allows trainers to manage clients, track progress, create workout programs, assign meal plans, and monitor check-ins — all in one organized dashboard.
