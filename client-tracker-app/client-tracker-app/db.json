@@ -1,0 +1,116 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "goalType": "CUT",
+      "status": "ACTIVE",
+      "startDate": "2026-02-04"
+    },
+    {
+      "id": 2,
+      "name": "Maria Santos",
+      "goalType": "LEAN BULK",
+      "status": "ACTIVE",
+      "startDate": "2026-01-20"
+    },
+    {
+      "id": 3,
+      "name": "Kevin Reyes",
+      "goalType": "RECOMP",
+      "status": "PAUSED",
+      "startDate": "2025-12-10"
+    }
+  ],
+  "checkins": [],
+  "programs": [
+  
+       {
+          "id":123,
+          "clientId": 1,
+           "program": [
+        {
+          "day": "DAY 1 - UPPER",
+          "exercises": ["CHEST", "SHOULDER","BICEP"]
+        },
+        {
+          "day": "DAY 2 - LOWER",
+          "exercises": ["RDL", "SQUAT","LEGPRESS"]
+        },
+        {
+          "day": "DAY 3 - CARDIO",
+          "exercises": ["30 MINS WALK", "JUMPING JACKS"]
+        }
+      ]
+    },
+    
+       {
+          "id": 1234,
+          "clientId": 2,
+           "program": [
+        {
+          "name": "DAY 1",
+          "exercises": ["Oatmeal", "Eggs"]
+        },
+        {
+          "name": "DAY 2",
+          "exercises": ["Chicken Breast", "Rice"]
+        },
+        {
+          "name": "DAY 3",
+          "exercises": ["Fish", "Vegetables"]
+        }
+      ]
+    }
+    
+  ],
+  "mealplan": [
+    {
+      "id" : 123,
+      "clientId": 1,
+      "goal": "Fat Loss",
+      "calories": "2000",
+      "protein":"160g",
+      "carbs":"240g",
+      "fat": "55g",
+      "meals": [
+        {
+          "name": "Breakfast",
+          "items": ["Oatmeal", "Eggs"]
+        },
+        {
+          "name": "Lunch",
+          "items": ["Chicken Breast", "Rice"]
+        },
+        {
+          "name": "Dinner",
+          "items": ["Fish", "Vegetables"]
+        }
+      ]
+    } ,
+    {
+      "id" : 255,
+      "clientId":2,
+      "goal": "Bulking",
+      "calories": "3000 kcal",
+      "protein":"160g",
+      "carbs":"240g",
+      "fat": "55g",
+      "meals": [
+        {
+          "name": "Breakfast",
+          "items": ["eggtmeal", "Eggs"]
+        },
+        {
+          "name": "Lunch",
+          "items": ["Chicken beef", "Rice"]
+        },
+        {
+          "name": "Dinner",
+          "items": ["Fish", "Vegetables"]
+        }
+      ]
+    }
+
+  ]
+}
