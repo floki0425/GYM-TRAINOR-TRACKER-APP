@@ -1,7 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AddCheckin from './AddCheckin'
+import { getCheckinByClientId } from '../../api/checkinApi'
 
-const CheckinsPanel = () => {
+const CheckinsPanel = ({selectedClientId}) => {
+const [checkin,setCheckin] = useState([])
+const [loading,setLoading] = useState(false)
+const [isAddCheckinOpen,setisAddCheckinOpen] = useState(false);
+const [isDrawerOpen,setIsDrawerOpen] = useState(false);
+const [saving,setSaving] = useState(false);
+const [error,setError] = useState(null);
+
+
+const openDrawer = ()=>{
+ if(!selectedClientId) return <div>Select a clientfirst</div>;
+ setIsDrawerOpen(true);
+}
+
+
+const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
+
+console.log(checkInClient)
+
+useEffect(()=>{
+  let ignore = false;
+
+  async function loadCheckin () {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getCheckinByClientId(selectedClientId);
+
+      if(!ignore)  setCheckin(data);
+    } catch (err) {
+      if(!ignore)  setError(err?.message ?? "failed to load");
+    } finally{
+      if(!ignore)  setLoading(false);
+    }
+  }
+loadCheckin();
+
+return () =>{
+  ignore = true;
+}
+},[selectedClientId])
+
+if(loading)return <div>loading..</div>
+
   return (
    <div className="min-h-screen bg-gray-100 p-6 ">
       {/* PAGE CONTAINER */}
@@ -291,9 +335,7 @@ const CheckinsPanel = () => {
         </div>
       </div>
       
-    <div className='hidden'>
-       <AddCheckin />
-    </div>
+   
      
      
     </div>
