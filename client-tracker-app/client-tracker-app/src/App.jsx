@@ -9,11 +9,25 @@ const App = () => {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [clientFilter,setClientFilter] = useState("ALL");
   const [selectedClientId, setSelectedClientId] = useState(null);
+
+console.log(clients.length)
+
+  const filtered = (filter)=>{
+    return clients.filter((c)=>{
+      if(filter === "All" ) return true ;
+       if(filter === "ACTIVE" ) return c.status === "ACTIVE";
+       if(filter === "PAUSED") return c.status === "PAUSED";
+       return true;
+    })
+  }
+
  
-   
- 
+ const filteredClients = filtered(clientFilter)
+
+
+
 
   useEffect(() => {
     let ignore = false;
@@ -46,6 +60,8 @@ const App = () => {
 
   const selectedClient = clients.find((c) => c.id === selectedClientId);
 
+
+
  
 
   return (<>
@@ -57,6 +73,9 @@ const App = () => {
         selectedClientId={selectedClientId}
         onSelectClient={onSelectClient}
         loading={loading}
+       setClientFilter={setClientFilter}
+       filteredClients={filteredClients}
+       clientFilter={clientFilter}
       />
 
       <Workspace 
