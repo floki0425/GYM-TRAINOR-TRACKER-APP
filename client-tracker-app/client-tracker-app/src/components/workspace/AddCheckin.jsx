@@ -1,13 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CheckinsPanel from './CheckinsPanel'
 
 const AddCheckin = ({onClose}) => {
+const [form,setForm] = useState({date:"2026-02-24", 
+        weightKg:"", 
+        waistIn:"", 
+        bodyFatPct:"", 
+        trainingDays:"0-7", 
+        stepsAvg:"", 
+        sleepAvg:"", 
+        caloriesTarget:"", 
+        adherence:"", 
+        energy:"", 
+        stress:"", 
+        hunger:"", 
+        clientNotes:"", 
+        trainerNotes:""
+
+})
+
+
+
+
+
+
   return (
     <div>
       {/* ===== Overlay ===== */}
 <div className="fixed inset-0 z-50">
   {/* Background */}
-  <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
+
 
   {/* Drawer Container */}
   <div className="absolute inset-y-0 right-0 w-full max-w-3xl bg-white shadow-2xl flex flex-col">
@@ -39,6 +61,8 @@ const AddCheckin = ({onClose}) => {
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <input
+            value={form.weightKg}
+            onChange={(e)=>setForm(e.target.value)}
             type="number"
             placeholder="Weight (kg)"
             className="rounded-md border border-gray-200 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
