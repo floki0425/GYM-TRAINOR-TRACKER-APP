@@ -12,8 +12,11 @@ const [error,setError] = useState(null);
 
 
 
+
+
 const openDrawer = ()=>{
   setIsDrawerOpen(true);
+ 
  }
 
  const closeDrawer = ()=>{
@@ -21,7 +24,6 @@ const openDrawer = ()=>{
  }
 
 const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
-
 
 
 useEffect(()=>{
@@ -49,6 +51,7 @@ return () =>{
 
 if(loading)return <div>loading..</div>
 if(error) return <div>error</div>
+
 
   return (
    <div className="min-h-screen bg-gray-100 p-6 ">
@@ -342,7 +345,12 @@ if(error) return <div>error</div>
       </div>
       
     {/* Drawer */}
-   {isDrawerOpen && <AddCheckin onClose={onclose}/>}
+   {isDrawerOpen && 
+   <AddCheckin 
+    onClose={closeDrawer}
+    selectedClientId={selectedClientId}
+    
+    />}
    
      
      
