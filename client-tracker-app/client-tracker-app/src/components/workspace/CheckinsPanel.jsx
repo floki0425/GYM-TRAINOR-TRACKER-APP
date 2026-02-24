@@ -342,7 +342,7 @@ if(error) return <div>error</div>
       </div>
       
     {/* Drawer */}
-   {isDrawerOpen && <AddCheckin onClose={closeDrawer}/>}
+   {isDrawerOpen && <AddCheckin onClose={onclose}/>}
    
      
      
