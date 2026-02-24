@@ -11,7 +11,7 @@ const Workspace = ({selectedClient,selectedClientId,loading}) => {
   const [activeTab,setActiveTab] = useState('progress');
 
 
-const numbers = [1,2,3,4,5]
+
 
 
 
@@ -25,7 +25,9 @@ const numbers = [1,2,3,4,5]
 
 const panels = {
   progress: <ProgressPanel />,
-  checkins: <CheckinsPanel/>,
+  checkins: <CheckinsPanel 
+            selectedClientId={selectedClientId}
+            />,
   program: <ProgramPanel   
         selectedClientId={selectedClientId}
         selectedClient={selectedClient} 
