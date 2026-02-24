@@ -5,21 +5,24 @@ import { getCheckinByClientId } from '../../api/checkinApi'
 const CheckinsPanel = ({selectedClientId}) => {
 const [checkin,setCheckin] = useState([])
 const [loading,setLoading] = useState(false)
-const [isAddCheckinOpen,setisAddCheckinOpen] = useState(false);
 const [isDrawerOpen,setIsDrawerOpen] = useState(false);
 const [saving,setSaving] = useState(false);
 const [error,setError] = useState(null);
 
 
-const openDrawer = ()=>{
- if(!selectedClientId) return <div>Select a clientfirst</div>;
- setIsDrawerOpen(true);
-}
 
+
+const openDrawer = ()=>{
+  setIsDrawerOpen(true);
+ }
+
+ const closeDrawer = ()=>{
+  setIsDrawerOpen(false);
+ }
 
 const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
 
-console.log(checkInClient)
+
 
 useEffect(()=>{
   let ignore = false;
@@ -31,7 +34,7 @@ useEffect(()=>{
       const data = await getCheckinByClientId(selectedClientId);
 
       if(!ignore)  setCheckin(data);
-    } catch (err) {
+    } catch (error) {
       if(!ignore)  setError(err?.message ?? "failed to load");
     } finally{
       if(!ignore)  setLoading(false);
@@ -45,6 +48,7 @@ return () =>{
 },[selectedClientId])
 
 if(loading)return <div>loading..</div>
+if(error) return <div>error</div>
 
   return (
    <div className="min-h-screen bg-gray-100 p-6 ">
@@ -70,7 +74,9 @@ if(loading)return <div>loading..</div>
                 <span className="text-sm">🔥</span> On Track
               </span>
 
-              <button className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+              <button  onClick={openDrawer}
+                        disabled={!selectedClientId}
+              className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
                 + Add Check-In
               </button>
 
@@ -335,10 +341,13 @@ if(loading)return <div>loading..</div>
         </div>
       </div>
       
+    {/* Drawer */}
+   {isDrawerOpen && <AddCheckin onClose={closeDrawer}/>}
    
      
      
     </div>
+    
   )
 }
 
