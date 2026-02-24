@@ -1,6 +1,7 @@
 import React from 'react'
+import CheckinsPanel from './CheckinsPanel'
 
-const AddCheckin = () => {
+const AddCheckin = ({onClose}) => {
   return (
     <div>
       {/* ===== Overlay ===== */}
@@ -23,7 +24,7 @@ const AddCheckin = () => {
           </p>
         </div>
 
-        <button className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+        <button onClick={onClose}  className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
           ✕
         </button>
       </div>
@@ -147,6 +148,8 @@ const AddCheckin = () => {
 
   </div>
 </div>
+
+
     </div>
   )
 }
