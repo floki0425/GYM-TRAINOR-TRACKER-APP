@@ -349,11 +349,10 @@ if(error) return <div>error</div>
    <AddCheckin 
     onClose={closeDrawer}
     selectedClientId={selectedClientId}
-    
     />}
    
      
-     
+      
     </div>
     
   )
