@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import CheckinsPanel from './CheckinsPanel'
 
-const AddCheckin = ({onClose}) => {
+const AddCheckin = ({onClose,selectedClientId}) => {
+const [error,setError] = useState({})
 const [form,setForm] = useState({date:"2026-02-24", 
         weightKg:"", 
         waistIn:"", 
@@ -21,6 +22,49 @@ const [form,setForm] = useState({date:"2026-02-24",
 
 
 
+
+
+
+ const saveCheckin = () =>{
+    const nextErrors = {
+      
+    }
+
+      if(!selectedClientId) nextErrors.clientId = "Select a client first"
+      if(!form.date) nextErrors.date = "Date is required"
+      if(String(form.weightKg).trim() === "")  nextErrors.weightKg= "Weight is required"
+      
+
+
+
+      if (Object.keys(nextErrors).length > 0) {
+       setError(nextErrors);
+       return;
+      }
+      
+      setError({});
+
+   const payload = {
+     clientId:selectedClientId,
+     date: form.date,
+     weightKg: Number(form.weightKg)
+ };
+
+console.log(payload)
+
+ onClose()
+ 
+
+  };
+
+
+
+const updateField =  (name,value) => {
+  setForm(prevForm =>({
+    ...prevForm, 
+    [name]: value
+  }))
+}
 
 
 
@@ -57,16 +101,23 @@ const [form,setForm] = useState({date:"2026-02-24",
 
       {/* Body Metrics */}
       <div className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-900">Body Metrics</h3>
+        <div>
+            <h3 className="text-sm font-semibold text-gray-900">Body Metrics</h3>
+            <p className='text-red-400 text-sm'>{error.weightKg}</p>
+            <p className='text-red-400 text-sm'>{error.date}</p>
+        </div>
+      
+        
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <input
             value={form.weightKg}
-            onChange={(e)=>setForm(e.target.value)}
+            onChange={(e)=>updateField("weightKg", e.target.value)}
             type="number"
             placeholder="Weight (kg)"
             className="rounded-md border border-gray-200 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
+          
           <input
             type="number"
             placeholder="Waist (in)"
@@ -78,6 +129,8 @@ const [form,setForm] = useState({date:"2026-02-24",
             className="rounded-md border border-gray-200 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <input
+             value={form.date}
+            onChange={(e)=>updateField("date", e.target.value)}
             type="date"
             className="rounded-md border border-gray-200 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
@@ -164,7 +217,7 @@ const [form,setForm] = useState({date:"2026-02-24",
         <button className="rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
           Save Draft
         </button>
-        <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+        <button onClick={()=>{saveCheckin()}} className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
           Save Check-in
         </button>
       </div>
