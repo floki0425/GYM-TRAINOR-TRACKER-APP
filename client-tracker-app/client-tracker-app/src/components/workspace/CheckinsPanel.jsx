@@ -26,10 +26,9 @@ const openDrawer = ()=>{
 const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
 
 
-useEffect(()=>{
-  let ignore = false;
 
-  async function loadCheckin () {
+const loadCheckin = async () => {
+  let ignore = false
     try {
       setLoading(true);
       setError(null);
@@ -41,16 +40,21 @@ useEffect(()=>{
     } finally{
       if(!ignore)  setLoading(false);
     }
-  }
-loadCheckin();
 
 return () =>{
   ignore = true;
 }
+
+  }
+
+
+
+useEffect(()=>{
+  loadCheckin();
 },[selectedClientId])
 
 if(loading)return <div>loading..</div>
-if(error) return <div>error</div>
+if(error) return <p>{error}</p>
 
 
   return (
@@ -349,6 +353,7 @@ if(error) return <div>error</div>
    <AddCheckin 
     onClose={closeDrawer}
     selectedClientId={selectedClientId}
+    loadCheckin={loadCheckin}
     />}
    
      
