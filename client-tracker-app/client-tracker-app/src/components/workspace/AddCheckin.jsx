@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import CheckinsPanel from './CheckinsPanel'
+import { createCheckin } from '../../api/checkinApi'
 
-const AddCheckin = ({onClose,selectedClientId}) => {
+const AddCheckin = ({onClose,selectedClientId,loadCheckin}) => {
 const [error,setError] = useState({})
 const [form,setForm] = useState({date:"2026-02-24", 
         weightKg:"", 
@@ -25,38 +26,39 @@ const [form,setForm] = useState({date:"2026-02-24",
 
 
 
- const saveCheckin = () =>{
-    const nextErrors = {
+ const saveCheckin = async () =>{
+    const nextErrors = {};
+
+    
+      if(!form.date) nextErrors.date = "Date is required";
+      if(String(form.weightKg).trim() === "")  nextErrors.weightKg= "Weight is required";
       
-    }
-
-      if(!selectedClientId) nextErrors.clientId = "Select a client first"
-      if(!form.date) nextErrors.date = "Date is required"
-      if(String(form.weightKg).trim() === "")  nextErrors.weightKg= "Weight is required"
-      
-
-
-
       if (Object.keys(nextErrors).length > 0) {
        setError(nextErrors);
        return;
       }
       
+      
+
+    const payload = {
+      clientId:selectedClientId,
+      date: form.date,
+      weightKg: Number(form.weightKg)
+    };
+
+    try {
+      await createCheckin(payload)
+      await loadCheckin();
+
       setError({});
-
-   const payload = {
-     clientId:selectedClientId,
-     date: form.date,
-     weightKg: Number(form.weightKg)
- };
-
-console.log(payload)
-
- onClose()
- 
-
+      onClose();
+    } catch (error) {
+      setError({_form: error?.message ?? "Failed to save check-in"})
+    } 
   };
+  
 
+console.log(form)
 
 
 const updateField =  (name,value) => {
