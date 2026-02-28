@@ -1,7 +1,9 @@
 import React from 'react'
 import search from '../assets/search.png'
+
         
-const ClientsPanel = ({clients, onSelectClient, selectedClientId, loading,setClientFilter,filteredClients,clientFilter}) => {
+const ClientsPanel = ({ clients, onSelectClient, selectedClientId, loading,setClientFilter,filteredClients,clientFilter,selectedClient}) => {
+ 
 
 
 
@@ -66,6 +68,8 @@ const ClientsPanel = ({clients, onSelectClient, selectedClientId, loading,setCli
            
            
          </div>
+
+       
        </div>
   )
 }
