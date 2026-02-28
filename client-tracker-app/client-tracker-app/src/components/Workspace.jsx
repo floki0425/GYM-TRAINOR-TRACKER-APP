@@ -1,45 +1,10 @@
-import React, { useEffect }  from "react";
-import ProgressPanel from "./workspace/ProgressPanel";
-import ProgramPanel from "./workspace/ProgramPanel";
-import MealPlanPanel from "./workspace/MealPlanPanel";
-import { useState } from "react";
-import CheckinsPanel from "./workspace/CheckinsPanel";
-import NotesPanel from "./workspace/NotesPanel";
+import { NavLink, Outlet } from "react-router-dom";
 
 const Workspace = ({selectedClient,selectedClientId,loading}) => {
 
-  const [activeTab,setActiveTab] = useState('progress');
-
-
-
-
-
-
-
-  useEffect(() => {
-  if (selectedClientId === null) return;
-
-  setActiveTab("progress")
- 
-}, [selectedClientId])
-
-const panels = {
-  progress: <ProgressPanel />,
-  checkins: <CheckinsPanel 
-            selectedClientId={selectedClientId}
-            />,
-  program: <ProgramPanel   
-        selectedClientId={selectedClientId}
-        selectedClient={selectedClient} 
-        />,
-  mealplan: <MealPlanPanel 
-        selectedClientId={selectedClientId}
-        selectedClient={selectedClient}
-        loading={loading} 
-        />,
-  notes: <NotesPanel/>
-};
-
+ const outletContext={
+  selectedClient,selectedClientId,loading
+ }
 
 
   return (
@@ -78,24 +43,70 @@ const panels = {
         </div>
 
         {/* Tabs */}
-        <div className="workspace__tabs mt-4 flex gap-4 border-b pb-2 text-sm">
-         <button onClick={() => setActiveTab("progress")}  className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "progress" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Progress</button>
-          <button onClick={() => setActiveTab("checkins")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "checkins" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Check-ins</button>
-          <button onClick={() => setActiveTab("program")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "program" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Program</button>
-          <button onClick={() => setActiveTab("mealplan")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "mealplan" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Meal Plan</button>
-          <button onClick={() => setActiveTab("notes")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "notes" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Notes</button>
-        </div>
+       <div className="workspace__tabs mt-4 flex gap-4 border-b pb-2 text-sm">
+  
+      <NavLink
+        to={`/clients/${selectedClientId}/workspace/progress`}
+        className={({ isActive }) =>
+          `hover:text-black transition-colors pb-2 text-xs ${
+            isActive ? "text-blue-500 border-b-2" : "text-gray-400"
+          }`
+        }
+      >
+        Progress
+      </NavLink>
+
+      <NavLink
+        to={`/clients/${selectedClientId}/workspace/checkins`}
+        className={({ isActive }) =>
+          `hover:text-black transition-colors pb-2 text-xs ${
+            isActive ? "text-blue-500 border-b-2" : "text-gray-400"
+          }`
+        }
+      >
+        Check-ins
+      </NavLink>
+
+      <NavLink
+       to={`/clients/${selectedClientId}/workspace/program`}
+        className={({ isActive }) =>
+          `hover:text-black transition-colors pb-2 text-xs ${
+            isActive ? "text-blue-500 border-b-2" : "text-gray-400"
+          }`
+        }
+      >
+        Program
+      </NavLink>
+
+      <NavLink
+         to={`/clients/${selectedClientId}/workspace/meal-plan`}
+        className={({ isActive }) =>
+          `hover:text-black transition-colors pb-2 text-xs ${
+            isActive ? "text-blue-500 border-b-2" : "text-gray-400"
+          }`
+        }
+      >
+        Meal Plan
+      </NavLink>
+
+      <NavLink
+         to={`/clients/${selectedClientId}/workspace/notes`}
+        className={({ isActive }) =>
+          `hover:text-black transition-colors pb-2 text-xs ${
+            isActive ? "text-blue-500 border-b-2" : "text-gray-400"
+          }`
+        }
+      >
+        Notes
+      </NavLink>
+
+</div>
         
 
         {/* Tab Content Area */}
         <div className="workspace__tabContent mt-6">
-          
           {/* Progress Tab (placeholder) */}
-          {panels[activeTab]}
-        
-  
-
-
+           <Outlet context={outletContext} />
         </div>
       </div>
 
