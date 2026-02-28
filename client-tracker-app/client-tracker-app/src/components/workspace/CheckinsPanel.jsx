@@ -1,61 +1,74 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import AddCheckin from './AddCheckin'
 import { getCheckinByClientId } from '../../api/checkinApi'
+import { Outlet, useNavigate, useOutletContext } from 'react-router-dom'
 
-const CheckinsPanel = ({selectedClientId}) => {
+const CheckinsPanel = () => {
 const [checkin,setCheckin] = useState([])
 const [loading,setLoading] = useState(false)
-const [isDrawerOpen,setIsDrawerOpen] = useState(false);
 const [saving,setSaving] = useState(false);
 const [error,setError] = useState(null);
+const {selectedClientId} = useOutletContext();
+const navigate = useNavigate()
+
+const ignoreRef = useRef(false);
 
 
-
-
+console.log(checkin)
 
 
 const openDrawer = ()=>{
-  setIsDrawerOpen(true);
+  navigate("add")
+  
  
  }
 
  const closeDrawer = ()=>{
-  setIsDrawerOpen(false);
+ 
+   navigate("..")
  }
+
+
 
 const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
 
 
 
-const loadCheckin = async () => {
-  let ignore = false
+const loadCheckin = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
       const data = await getCheckinByClientId(selectedClientId);
 
-      if(!ignore)  setCheckin(data);
+      if(!ignoreRef.current)  setCheckin(data);
     } catch (error) {
-      if(!ignore)  setError(err?.message ?? "failed to load");
+      if(!ignoreRef.current)  setError(error?.message ?? "failed to load");
     } finally{
-      if(!ignore)  setLoading(false);
+      if(!ignoreRef.current)  setLoading(false);
     }
 
-return () =>{
-  ignore = true;
-}
-
-  }
 
 
+  },[])
+
+console.log(selectedClientId)
 
 useEffect(()=>{
+  ignoreRef.current = false
   loadCheckin();
+
+  return () =>{
+    ignoreRef.current = true;
+  }
 },[selectedClientId])
 
 if(loading)return <div>loading..</div>
 if(error) return <p>{error}</p>
 
+
+ const outletContext = {
+  openDrawer,closeDrawer,loadCheckin
+}
 
   return (
    <div className="min-h-screen bg-gray-100 p-6 ">
@@ -82,7 +95,8 @@ if(error) return <p>{error}</p>
               </span>
 
               <button  onClick={openDrawer}
-                        disabled={!selectedClientId}
+                disabled={!selectedClientId}
+                       
               className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
                 + Add Check-In
               </button>
@@ -349,12 +363,9 @@ if(error) return <p>{error}</p>
       </div>
       
     {/* Drawer */}
-   {isDrawerOpen && 
-   <AddCheckin 
-    onClose={closeDrawer}
-    selectedClientId={selectedClientId}
-    loadCheckin={loadCheckin}
-    />}
+  
+   <Outlet context = {outletContext} /> 
+   
    
      
       

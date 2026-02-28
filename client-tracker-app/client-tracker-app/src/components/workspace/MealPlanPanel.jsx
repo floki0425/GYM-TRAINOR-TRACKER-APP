@@ -1,48 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { getMealplan, getMealplanByClientId } from '../../api/mealPlanApi';
+import { useOutletContext } from 'react-router-dom';
 
-const MealPlanPanel = ({selectedClientId,selectedClient}) => {
+const MealPlanPanel = () => {
   const [mealplan,setMealplan] = useState([]);
   const [loading,setLoading] = useState(false);
- 
-
   const [error,setError] = useState(null)
-
+  const {selectedClientId} = useOutletContext();
 
   const clientMealPlan = mealplan.find((plan)=> plan.clientId === selectedClientId)
 
-console.log(mealplan)
+  const ignoreRef = useRef(false)
+
+   const loadMealplan = useCallback(async () => {
+      try{
+        setLoading(true);
+        setError(null)
+
+        const data = await getMealplanByClientId(selectedClientId);
+
+        if(!ignoreRef.current) setMealplan(data);
+      } catch(err){
+        if(!ignoreRef.current) setError(err?.message ?? "Failed to load mealplan")
+      } finally{
+        if(!ignoreRef.current) setLoading(false);
+      }
+    },[])
+
 
 
 useEffect(()=>{
- let ignore = false; 
- 
- async function loadMealplan() {
- 
-  
-  try{
-    setLoading(true);
-    setError(null)
-
-    const data = await getMealplanByClientId(selectedClientId);
-     
-   
-
-    if(!ignore) setMealplan(data);
-   } catch(err){
-    if(!ignore) setError(err?.message ?? "Failed to load mealplan")
-   } finally{
-    if(!ignore) setLoading(false);
-   }
-
-   
+ ignoreRef.current = false
+ loadMealplan()
+ return () =>{
+   ignoreRef.current = true;
  }
-
-loadMealplan()
-
-return () =>{
-  ignore = true;
-}
 
 },[selectedClientId])
   

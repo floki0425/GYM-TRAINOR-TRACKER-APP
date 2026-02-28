@@ -1,46 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { getProgram, getProgramId } from '../../api/programApi';
+import { useOutletContext } from 'react-router-dom';
 
-const ProgramPanel = ({selectedClientId,selectedClient}) => {
+const ProgramPanel = () => {
   const [program,setProgram] = useState([])
   const [loading,setLoading] = useState(false);
   const [error, setError] = useState(null);
+const {selectedClientId} = useOutletContext()
+
+const ignoreRef = useRef(false);
 
 
 const clientProgram = program.find((p)=>p.clientId === selectedClientId)
 
 
 
+         const loadingProgram = useCallback(async() => {
+
+            try{  
+              setLoading(true)
+              setError(null)
+
+              const data = await getProgramId(selectedClientId);
+
+              if(!ignoreRef.current) setProgram(data);
+            }catch(err){
+              if(!ignoreRef.current) setError(err?.message ?? "Failed to load")
+            }finally{
+              if(!ignoreRef.current) setLoading(false);
+            }
+    },[])
+
 
   useEffect(()=>{
-    let ignore = false;
-
-    async function loadingProgram() {
-      
-      try{  
-        setLoading(true)
-        setError(null)
-
-        const data = await getProgramId(selectedClientId);
-
-        if(!ignore) setProgram(data);
-      }catch(err){
-        if(!ignore) setError(err?.message ?? "Failed to load")
-      }finally{
-        if(!ignore) setLoading(false);
-      }
-
-  
-
-    }
-
+    ignoreRef.current = false
     loadingProgram()
 
     return ()=>{
-       ignore = true
+      ignoreRef.current = true
     }
-
-
   },[selectedClientId])
 
 

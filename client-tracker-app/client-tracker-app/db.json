@@ -24,130 +24,248 @@
   ],
   "checkins": [
     {
-      "id":444,
+      "id": 444,
       "clientId": 1,
-      "date":"2/24/2026", 
-        "weightKg":"", 
-        "waistIn":"", 
-        "bodyFatPct":"", 
-        "trainingDays":"0-7", 
-        "stepsAvg":"", 
-        "sleepAvg":"", 
-        "caloriesTarget":"", 
-        "adherence":"", 
-        "energy":"", 
-        "stress":"", 
-        "hunger":"", 
-        "clientNotes":"", 
-        "trainerNotes":""
+      "date": "2/24/2026",
+      "weightKg": "",
+      "waistIn": "",
+      "bodyFatPct": "",
+      "trainingDays": "0-7",
+      "stepsAvg": "",
+      "sleepAvg": "",
+      "caloriesTarget": "",
+      "adherence": "",
+      "energy": "",
+      "stress": "",
+      "hunger": "",
+      "clientNotes": "",
+      "trainerNotes": ""
     },
-     {
-      "id":464,
+    {
+      "id": 464,
       "clientId": 2,
-      "date":"2/24/2026", 
-        "weightKg":"", 
-        "waistIn":"", 
-        "bodyFatPct":"", 
-        "trainingDays":"0-7", 
-        "stepsAvg":"", 
-        "sleepAvg":"", 
-        "caloriesTarget":"", 
-        "adherence":"", 
-        "energy":"", 
-        "stress":"", 
-        "hunger":"", 
-        "clientNotes":"", 
-        "trainerNotes":""
+      "date": "2/24/2026",
+      "weightKg": "",
+      "waistIn": "",
+      "bodyFatPct": "",
+      "trainingDays": "0-7",
+      "stepsAvg": "",
+      "sleepAvg": "",
+      "caloriesTarget": "",
+      "adherence": "",
+      "energy": "",
+      "stress": "",
+      "hunger": "",
+      "clientNotes": "",
+      "trainerNotes": ""
+    },
+    {
+      "id": "26e3",
+      "clientId": 1,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "6e04",
+      "clientId": 1,
+      "date": "2026-02-24",
+      "weightKg": 144
+    },
+    {
+      "id": "676d",
+      "clientId": 1,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "4c22",
+      "clientId": 1,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "79e1",
+      "clientId": 1,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "de5e",
+      "clientId": 1,
+      "date": "2026-02-03",
+      "weightKg": 12
+    },
+    {
+      "id": "f497",
+      "clientId": 1,
+      "date": "2026-02-03",
+      "weightKg": 1213
+    },
+    {
+      "id": "d042",
+      "clientId": 1,
+      "date": "2026-02-03",
+      "weightKg": 1213
+    },
+    {
+      "id": "2eb3",
+      "clientId": 1,
+      "date": "2026-02-24",
+      "weightKg": 1
+    },
+    {
+      "id": "ea63",
+      "clientId": 1,
+      "date": "2026-02-24",
+      "weightKg": 1233
+    },
+    {
+      "id": "fee3",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "fc1f",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "9c62",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "763a",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 123
     }
   ],
   "programs": [
-  
-       {
-          "id":123,
-          "clientId": 1,
-           "program": [
+    {
+      "id": 123,
+      "clientId": 1,
+      "program": [
         {
           "day": "DAY 1 - UPPER",
-          "exercises": ["CHEST", "SHOULDER","BICEP"]
+          "exercises": [
+            "CHEST",
+            "SHOULDER",
+            "BICEP"
+          ]
         },
         {
           "day": "DAY 2 - LOWER",
-          "exercises": ["RDL", "SQUAT","LEGPRESS"]
+          "exercises": [
+            "RDL",
+            "SQUAT",
+            "LEGPRESS"
+          ]
         },
         {
           "day": "DAY 3 - CARDIO",
-          "exercises": ["30 MINS WALK", "JUMPING JACKS"]
+          "exercises": [
+            "30 MINS WALK",
+            "JUMPING JACKS"
+          ]
         }
       ]
     },
-    
-       {
-          "id": 1234,
-          "clientId": 2,
-           "program": [
+    {
+      "id": 1234,
+      "clientId": 2,
+      "program": [
         {
           "name": "DAY 1",
-          "exercises": ["Oatmeal", "Eggs"]
+          "exercises": [
+            "Oatmeal",
+            "Eggs"
+          ]
         },
         {
           "name": "DAY 2",
-          "exercises": ["Chicken Breast", "Rice"]
+          "exercises": [
+            "Chicken Breast",
+            "Rice"
+          ]
         },
         {
           "name": "DAY 3",
-          "exercises": ["Fish", "Vegetables"]
+          "exercises": [
+            "Fish",
+            "Vegetables"
+          ]
         }
       ]
     }
-    
   ],
   "mealplan": [
     {
-      "id" : 123,
+      "id": 123,
       "clientId": 1,
       "goal": "Fat Loss",
       "calories": "2000",
-      "protein":"160g",
-      "carbs":"240g",
+      "protein": "160g",
+      "carbs": "240g",
       "fat": "55g",
       "meals": [
         {
           "name": "Breakfast",
-          "items": ["Oatmeal", "Eggs"]
+          "items": [
+            "Oatmeal",
+            "Eggs"
+          ]
         },
         {
           "name": "Lunch",
-          "items": ["Chicken Breast", "Rice"]
+          "items": [
+            "Chicken Breast",
+            "Rice"
+          ]
         },
         {
           "name": "Dinner",
-          "items": ["Fish", "Vegetables"]
+          "items": [
+            "Fish",
+            "Vegetables"
+          ]
         }
       ]
-    } ,
+    },
     {
-      "id" : 255,
-      "clientId":2,
+      "id": 255,
+      "clientId": 2,
       "goal": "Bulking",
       "calories": "3000 kcal",
-      "protein":"160g",
-      "carbs":"240g",
+      "protein": "160g",
+      "carbs": "240g",
       "fat": "55g",
       "meals": [
         {
           "name": "Breakfast",
-          "items": ["eggtmeal", "Eggs"]
+          "items": [
+            "eggtmeal",
+            "Eggs"
+          ]
         },
         {
           "name": "Lunch",
-          "items": ["Chicken beef", "Rice"]
+          "items": [
+            "Chicken beef",
+            "Rice"
+          ]
         },
         {
           "name": "Dinner",
-          "items": ["Fish", "Vegetables"]
+          "items": [
+            "Fish",
+            "Vegetables"
+          ]
         }
       ]
     }
-
   ]
 }

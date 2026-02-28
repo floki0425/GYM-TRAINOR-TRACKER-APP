@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import CheckinsPanel from './CheckinsPanel'
 import { createCheckin } from '../../api/checkinApi'
+import { useOutletContext } from 'react-router-dom'
 
-const AddCheckin = ({onClose,selectedClientId,loadCheckin}) => {
+const AddCheckin = ({}) => {
 const [error,setError] = useState({})
 const [form,setForm] = useState({date:"2026-02-24", 
         weightKg:"", 
@@ -20,6 +21,7 @@ const [form,setForm] = useState({date:"2026-02-24",
         trainerNotes:""
 
 })
+const { openDrawer,closeDrawer,loadCheckin} = useOutletContext()
 
 
 
@@ -51,7 +53,7 @@ const [form,setForm] = useState({date:"2026-02-24",
       await loadCheckin();
 
       setError({});
-      onClose();
+     closeDrawer();
     } catch (error) {
       setError({_form: error?.message ?? "Failed to save check-in"})
     } 
@@ -92,7 +94,7 @@ const updateField =  (name,value) => {
           </p>
         </div>
 
-        <button onClick={onClose}  className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+        <button onClick={closeDrawer}  className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
           ✕
         </button>
       </div>
