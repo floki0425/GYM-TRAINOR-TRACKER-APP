@@ -1,96 +1,41 @@
-import React, { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import TopBar from "./components/TopBar";
+
+// Pages
 import ClientsPanel from "./components/ClientsPanel";
-import Workspace from "./components/Workspace";
-import { getClients } from "./api/clientApi.js";
-import MealPlanPanel from "./components/workspace/MealPlanPanel.jsx";
-import TopBar from "./components/TopBar.jsx";
+import CheckinsPanel from "./components/workspace/CheckinsPanel";
+import MealPlanPanel from "./components/workspace/MealPlanPanel";
+import NotesPanel from "./components/workspace/NotesPanel";
+import ProgressPanel from "./components/workspace/ProgressPanel";
+import ClientCard from "./components/ClientCard";
+import ProgramPanel from "./components/workspace/ProgramPanel";
+import AddCheckin from "./components/workspace/AddCheckin";
 
-const App = () => {
-  const [clients, setClients] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [clientFilter,setClientFilter] = useState("ALL");
-  const [selectedClientId, setSelectedClientId] = useState(null);
+function App() {
+  return (
+   <Routes>
+      {/* Layout route */}
+      <Route path="/" element={<ClientCard />}/>
+      <Route path="/clients/:id" element={<ClientCard/>}>
+        {/* default tab */}
+   
+        <Route index element={<Navigate to="workspace/progress" replace />} />
 
-console.log(clients.length)
-
-  const filtered = (filter)=>{
-    return clients.filter((c)=>{
-      if(filter === "All" ) return true ;
-       if(filter === "ACTIVE" ) return c.status === "ACTIVE";
-       if(filter === "PAUSED") return c.status === "PAUSED";
-       return true;
-    })
-  }
-
- 
- const filteredClients = filtered(clientFilter)
-
-
-
-
-  useEffect(() => {
-    let ignore = false;
-
-    async function loadClients() {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const data = await getClients();
+        {/* Tabs */}
+        <Route path="workspace/progress" element={<ProgressPanel />} />
+        <Route path="workspace/checkins" element={<CheckinsPanel />} >
+           <Route path="add" element={<AddCheckin />} />
+        </Route>
         
-        if (!ignore) setClients(data);
-      } catch (err) {
-        if (!ignore) setError(err?.message ?? "Failed to load clients");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    }
+        <Route path="workspace/program" element={<ProgramPanel />} />
+        <Route path="workspace/meal-plan" element={<MealPlanPanel />} />
+        <Route path="workspace/notes" element={<NotesPanel />} />
+      </Route>
 
-    loadClients();
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
-
-  const onSelectClient = (id) => {
-    setSelectedClientId(id);
-  };
-
-  const selectedClient = clients.find((c) => c.id === selectedClientId);
-
-
-
- 
-
-  return (<>
-      <TopBar/>
-  
-      <div className="flex ">
-      <ClientsPanel
-        clients={clients}
-        selectedClientId={selectedClientId}
-        onSelectClient={onSelectClient}
-        loading={loading}
-       setClientFilter={setClientFilter}
-       filteredClients={filteredClients}
-       clientFilter={clientFilter}
-      />
-
-      <Workspace 
-      selectedClient={selectedClient}
-      selectedClientId={selectedClientId}
-       loading={loading}
-      />
-
-    
-
-  </div>
-    </>
-  
+      {/* safety fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
-};
+}
 
 export default App;
-
