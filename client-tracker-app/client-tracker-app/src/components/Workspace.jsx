@@ -1,10 +1,11 @@
 import { NavLink, Outlet } from "react-router-dom";
 
-const Workspace = ({selectedClient,selectedClientId,loading}) => {
+const Workspace = ({selectedClient,selectedClientId,loading, openDrawer,closeDrawer}) => {
 
  const outletContext={
-  selectedClient,selectedClientId,loading
+  selectedClient,selectedClientId,loading,closeDrawer
  }
+
 
 
   return (
@@ -33,7 +34,9 @@ const Workspace = ({selectedClient,selectedClientId,loading}) => {
           </div>
 
           <div className="workspace__actions mt-4 flex gap-2">
-            <button className="rounded-xl bg-blue-600 px-4 py-2 text-white">
+            <button onClick={openDrawer}
+                    disabled={!selectedClient}
+            className="rounded-xl bg-blue-600 px-4 py-2 text-white">
               + Add Check-in
             </button>
             <button className="rounded-xl border px-4 py-2">

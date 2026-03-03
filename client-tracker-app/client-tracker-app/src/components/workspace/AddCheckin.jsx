@@ -21,7 +21,7 @@ const [form,setForm] = useState({date:"2026-02-24",
         trainerNotes:""
 
 })
-const { openDrawer,closeDrawer,loadCheckin} = useOutletContext()
+const { openDrawer,closeDrawer,loadCheckin,selectedClientId} = useOutletContext()
 
 
 
