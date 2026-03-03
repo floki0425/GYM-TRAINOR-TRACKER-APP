@@ -24,12 +24,17 @@ const ClientCard = () => {
    navigate(`/clients/${id}`);
   };
 
-  const selectedClient = clients.find((c) => c.id === selectedClientId);
+  const openDrawer = ()=>{
+   navigate("add")
+ }
+
+ const closeDrawer = ()=>{
+   navigate(" ")
+ }
+
+  const selectedClient = clients.find((c) => Number(c.id) === selectedClientId);
 
 
-
-  
- 
 
 
   const filtered = (filter)=>{
@@ -95,6 +100,8 @@ const ClientCard = () => {
       selectedClient={selectedClient}
        loading={loading}
        selectedClientId={selectedClientId}
+       openDrawer={openDrawer}
+       closeDrawer={closeDrawer}
       />
       
       
