@@ -1,21 +1,21 @@
 {
   "clients": [
     {
-      "id": 1,
+      "id": "1",
       "name": "John Doe",
       "goalType": "CUT",
       "status": "ACTIVE",
       "startDate": "2026-02-04"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Maria Santos",
       "goalType": "LEAN BULK",
       "status": "ACTIVE",
       "startDate": "2026-01-20"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Kevin Reyes",
       "goalType": "RECOMP",
       "status": "PAUSED",
@@ -24,7 +24,7 @@
   ],
   "checkins": [
     {
-      "id": 444,
+      "id": "44e2",
       "clientId": 1,
       "date": "2/24/2026",
       "weightKg": "",
@@ -42,9 +42,9 @@
       "trainerNotes": ""
     },
     {
-      "id": 464,
+      "id": "462e",
       "clientId": 2,
-      "date": "2/24/2026",
+      "date": "2026-02-24",
       "weightKg": "",
       "waistIn": "",
       "bodyFatPct": "",
@@ -81,7 +81,7 @@
       "id": "4c22",
       "clientId": 1,
       "date": "2026-02-24",
-      "weightKg": 12
+      "weightKg": 14
     },
     {
       "id": "79e1",
@@ -102,51 +102,69 @@
       "weightKg": 1213
     },
     {
-      "id": "d042",
-      "clientId": 1,
-      "date": "2026-02-03",
-      "weightKg": 1213
-    },
-    {
-      "id": "2eb3",
-      "clientId": 1,
+      "id": "cb65",
+      "clientId": 2,
       "date": "2026-02-24",
-      "weightKg": 1
+      "weightKg": 23
     },
     {
-      "id": "ea63",
-      "clientId": 1,
-      "date": "2026-02-24",
-      "weightKg": 1233
-    },
-    {
-      "id": "fee3",
+      "id": "3543",
       "clientId": 2,
       "date": "2026-02-24",
       "weightKg": 12
     },
     {
-      "id": "fc1f",
+      "id": "af6e",
       "clientId": 2,
       "date": "2026-02-24",
       "weightKg": 12
     },
     {
-      "id": "9c62",
+      "id": "740b",
       "clientId": 2,
       "date": "2026-02-24",
       "weightKg": 12
     },
     {
-      "id": "763a",
+      "id": "d662",
       "clientId": 2,
       "date": "2026-02-24",
-      "weightKg": 123
+      "weightKg": 12
+    },
+    {
+      "id": "ca3c",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "8569",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "abc8",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "e04d",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "00c2",
+      "clientId": 2,
+      "date": "2026-02-24",
+      "weightKg": 12
     }
   ],
   "programs": [
     {
-      "id": 123,
+      "id": "123",
       "clientId": 1,
       "program": [
         {
@@ -175,7 +193,7 @@
       ]
     },
     {
-      "id": 1234,
+      "id": "1234",
       "clientId": 2,
       "program": [
         {
@@ -204,7 +222,7 @@
   ],
   "mealplan": [
     {
-      "id": 123,
+      "id": "123",
       "clientId": 1,
       "goal": "Fat Loss",
       "calories": "2000",
@@ -236,7 +254,7 @@
       ]
     },
     {
-      "id": 255,
+      "id": "255",
       "clientId": 2,
       "goal": "Bulking",
       "calories": "3000 kcal",
