@@ -9,68 +9,129 @@ const ClientsPanel = ({ clients, onSelectClient, selectedClientId, loading,setCl
 
 
     return (
-       <div className="clients-panel   bg-gray-100  ">
-        <div className=' p-3'>
-              <p className='font-semibold mb-4'>Clients</p>
-       <div className="items-center bg-gray-100 border-1x mb-5 ">
-            <button onClick={()=>{setClientFilter("ALL")}} className="px-4 py-1.5 text-sm font-medium bg-blue-400 text-white rounded-l shadow-sm ">
-                All
-            </button>
-            <button onClick={()=>{setClientFilter("ACTIVE")}} className="px-4 py-1.5 text-sm font-medium text-gray-500  hover:bg-white/60 ">
-                Active
-            </button>
-            <button onClick={()=>{setClientFilter("PAUSED")}} className="px-4 py-1.5 text-sm font-medium text-gray-500  hover:bg-white/60 ">
-                Paused
-            </button>
-        </div>
-       <div className='flex bg-white border border-gray-300 rounded item-center  w-full  '>
-                       <img src={search} alt="asd" className='w-8 py-2 px-2 '/>
-                       <input  type="text" placeholder='Search..' className=" w-full max-w-900 focus:outline-none  cursor-pointer"/>
-                   </div>
-        </div>
-       
-         <div className="clients-panel__list w-[320px] bg-gray-50 p-4 space-y-4">
-           {loading  ? ("Loading clients…") : clients.length === 0 ? (                     
-            <div className="clients-panel__empty">
-                <p>No clients yet</p>
-                <p>Add your first client to get started</p>
-            </div>) : filteredClients.length === 0 ? (
-            <div className="clients-panel__empty">
-            <p>No {clientFilter} yet</p>
-            <p>Add your first client to get started</p>
-           </div>) : ( filteredClients.map((client)=>{
-        return <button  key={client.id} onClick={()=>{onSelectClient(client.id)}} className={`client-row border-2 mb-2 flex flex-1 ${client.id === selectedClientId ? "client-row--selected " : "" }`}>
-                <div >
-                    {/* avatar or  placeholder */}
+     <div className="clients-panel bg-slate-50">
+  <div className="p-4">
+    <p className="mb-4 text-sm font-semibold text-slate-900">Clients</p>
+
+    {/* Filter pills */}
+    <div className="mb-4 inline-flex overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <button
+        onClick={() => setClientFilter("ALL")}
+        className={`px-4 py-2 text-xs font-semibold transition ${
+          clientFilter === "ALL"
+            ? "bg-teal-600 text-white"
+            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+        }`}
+      >
+        All
+      </button>
+
+      <button
+        onClick={() => setClientFilter("ACTIVE")}
+        className={`px-4 py-2 text-xs font-semibold transition ${
+          clientFilter === "ACTIVE"
+            ? "bg-teal-600 text-white"
+            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+        }`}
+      >
+        Active
+      </button>
+
+      <button
+        onClick={() => setClientFilter("PAUSED")}
+        className={`px-4 py-2 text-xs font-semibold transition ${
+          clientFilter === "PAUSED"
+            ? "bg-teal-600 text-white"
+            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+        }`}
+      >
+        Paused
+      </button>
+    </div>
+
+    {/* Search */}
+    <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
+      <img src={search} alt="Search" className="h-4 w-4 opacity-60" />
+      <input
+        type="text"
+        placeholder="Search…"
+        className="w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
+      />
+    </div>
+  </div>
+
+  {/* List */}
+  <div className="clients-panel__list w-[320px] space-y-3 border-t border-slate-200 bg-white p-4">
+    {loading ? (
+      <p className="text-sm text-slate-600">Loading clients…</p>
+    ) : clients.length === 0 ? (
+      <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-6">
+        <p className="text-sm font-semibold text-slate-900">No clients yet</p>
+        <p className="mt-1 text-sm text-slate-600">
+          Add your first client to get started.
+        </p>
+      </div>
+    ) : filteredClients.length === 0 ? (
+      <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-6">
+        <p className="text-sm font-semibold text-slate-900">
+          No {clientFilter} yet
+        </p>
+        <p className="mt-1 text-sm text-slate-600">
+          Add your first client to get started.
+        </p>
+      </div>
+    ) : (
+      filteredClients.map((client) => {
+        const isSelected = client.id === selectedClientId;
+
+        return (
+          <button
+            key={client.id}
+            onClick={() => onSelectClient(client.id)}
+            className={`client-row w-full rounded-2xl border p-4 text-left shadow-sm transition ${
+              isSelected
+                ? "border-teal-200 bg-teal-50"
+                : "border-slate-200 bg-white hover:bg-slate-50"
+            }`}
+          >
+            <div className="flex items-start gap-3">
+              {/* Avatar placeholder */}
+              
+              <div
+                className={`h-10 w-10 shrink-0 rounded-xl border ${
+                  isSelected ? "border-teal-200 bg-white" : "border-slate-200 bg-slate-100"
+                }`}
+              />
+
+              <div className="flex-1">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm font-semibold text-slate-900">
+                    {client.name}
+                  </p>
+
+                  {/* Status badge */}
+                  <span
+                    className={`rounded-full px-2 py-1 text-[11px] font-semibold ${
+                      client.status === "ACTIVE"
+                        ? "border border-teal-200 bg-teal-50 text-teal-700"
+                        : "border border-slate-200 bg-slate-50 text-slate-600"
+                    }`}
+                  >
+                    {client.status}
+                  </span>
                 </div>
 
-                <div className="client-row__body  ">
-                    <div className="client-row__name mr-5">
-                       {client.name}
-                    </div>
-
-                    <div className="client-row__meta">
-                {client.goalType} • {client.status}
-                    </div>
-                </div>
-
-                <div >
-                    {/* status badge / icon */}
-                </div>
-            </button>
-           })
-            
-         
-        )}
-        
-
-           
-           
-           
-         </div>
-
-       
-       </div>
+                <p className="mt-1 text-xs text-slate-600">
+                  {client.goalType} • ID {client.id}
+                </p>
+              </div>
+            </div>
+          </button>
+        );
+      })
+    )}
+  </div>
+</div>
   )
 }
 

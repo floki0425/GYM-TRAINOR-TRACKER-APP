@@ -26,11 +26,8 @@ function App() {
         <Route path="add" element={<AddCheckin />} />
         <Route path="workspace/progress" element={<ProgressPanel />} />
         <Route path="workspace/checkins" element={<CheckinsPanel />} >
-           <Route path=":checkinId" element={<CheckinListContent />} /> 
-           </Route>
-           
-    
-        
+          <Route path=":checkinId" element={<CheckinListContent />} /> 
+        </Route>
         <Route path="workspace/program" element={<ProgramPanel />} />
         <Route path="workspace/meal-plan" element={<MealPlanPanel />} />
         <Route path="workspace/notes" element={<NotesPanel />} />

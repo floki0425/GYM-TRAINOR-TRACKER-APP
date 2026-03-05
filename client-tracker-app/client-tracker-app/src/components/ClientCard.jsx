@@ -82,31 +82,32 @@ const ClientCard = () => {
   return (<>
       <TopBar/>
   
-      <div className="flex ">
-        
+    <div className="flex min-h-screen bg-slate-50">
+  {/* Left Sidebar */}
+  <div className="w-[320px] border-r border-slate-200 bg-white">
     <ClientsPanel
-        clients={clients}
-        onSelectClient={onSelectClient}
-        loading={loading}
-       setClientFilter={setClientFilter}
-       filteredClients={filteredClients}
-       clientFilter={clientFilter}
-        selectedClient={selectedClient}
-      selectedClientId = {selectedClientId}
-
-      />
-
-      <Workspace
+      clients={clients}
+      onSelectClient={onSelectClient}
+      loading={loading}
+      setClientFilter={setClientFilter}
+      filteredClients={filteredClients}
+      clientFilter={clientFilter}
       selectedClient={selectedClient}
-       loading={loading}
-       selectedClientId={selectedClientId}
-       openDrawer={openDrawer}
-       closeDrawer={closeDrawer}
-      />
-      
-      
-
+      selectedClientId={selectedClientId}
+    />
   </div>
+
+  {/* Main Workspace */}
+  <div className="flex-1">
+    <Workspace
+      selectedClient={selectedClient}
+      loading={loading}
+      selectedClientId={selectedClientId}
+      openDrawer={openDrawer}
+      closeDrawer={closeDrawer}
+    />
+  </div>
+</div>
     </>
   
   );
