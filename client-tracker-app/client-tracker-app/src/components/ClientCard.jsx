@@ -4,8 +4,7 @@ import React, { useCallback, useEffect, useState,useRef } from "react";
 import { getClients } from "../api/clientApi.js";
 import TopBar from "./TopBar.jsx";
 import ClientsPanel from "./ClientsPanel.jsx";
-import Workspace from "./Workspace.jsx";
-import { useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 
 
@@ -29,8 +28,17 @@ const ClientCard = () => {
  }
 
  const closeDrawer = ()=>{
-   navigate(" ")
+   navigate(-1)
  }
+
+ const addClient = ()=>{
+   navigate("AddClient")
+ }
+
+  const closeAddClient = () => {
+    navigate(-1)
+  }
+ 
 
   const selectedClient = clients.find((c) => Number(c.id) === selectedClientId);
 
@@ -75,7 +83,13 @@ const ClientCard = () => {
   }, [loadClients]);
 
 
-
+ const outletContext = {
+    selectedClient,
+    loading,
+    selectedClientId,
+    openDrawer,
+    closeDrawer,
+  closeAddClient}
 
  
 
@@ -94,19 +108,18 @@ const ClientCard = () => {
       clientFilter={clientFilter}
       selectedClient={selectedClient}
       selectedClientId={selectedClientId}
+      addClient={addClient}
+      
+       
     />
   </div>
 
   {/* Main Workspace */}
   <div className="flex-1">
-    <Workspace
-      selectedClient={selectedClient}
-      loading={loading}
-      selectedClientId={selectedClientId}
-      openDrawer={openDrawer}
-      closeDrawer={closeDrawer}
-    />
+    <Outlet context={outletContext}/>
   </div>
+ 
+  
 </div>
     </>
   
