@@ -1,18 +1,15 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useOutletContext } from "react-router-dom";
 
-const Workspace = ({selectedClient,selectedClientId,loading, openDrawer,closeDrawer}) => {
+const Workspace = () => {
+
+  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer} = useOutletContext()
+
 
  const outletContext={
-  selectedClient,selectedClientId,loading,closeDrawer
+  selectedClient,selectedClientId,loading,closeDrawer,
  }
 
-
-
-  return (
-  <div className="flex workspace flex-1 bg-slate-50 p-6">
-  {/* EMPTY STATE */}
-  {!selectedClient ? (
-    <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+ if(!selectedClient) return   <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
       <h2 className="text-lg font-semibold text-slate-900">Select a client</h2>
       <p className="mt-2 text-sm text-slate-600">
         Choose a client from the left to view progress, program, and meal plan.
@@ -22,8 +19,21 @@ const Workspace = ({selectedClient,selectedClientId,loading, openDrawer,closeDra
         Tip: Start with <span className="font-medium text-slate-700">Check-ins</span> to track weekly progress.
       </div>
     </div>
-  ) : (
-    <div className="workspace__content mx-auto w-full max-w-5xl">
+  
+
+  return (
+  <div className="flex workspace flex-1 bg-slate-50 p-6">
+  {/* EMPTY STATE */}
+ {!selectedClientId ? ( <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <h2 className="text-lg font-semibold text-slate-900">Select a client</h2>
+      <p className="mt-2 text-sm text-slate-600">
+        Choose a client from the left to view progress, program, and meal plan.
+      </p>
+
+      <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-sm text-slate-500">
+        Tip: Start with <span className="font-medium text-slate-700">Check-ins</span> to track weekly progress.
+      </div>
+    </div>): (<div className="workspace__content mx-auto w-full max-w-5xl">
       {/* HEADER CARD */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -124,8 +134,9 @@ const Workspace = ({selectedClient,selectedClientId,loading, openDrawer,closeDra
       <div className="workspace__tabContent mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <Outlet context={outletContext} />
       </div>
-    </div>
-  )}
+    </div>)}
+    
+
 </div>
   );
 };
