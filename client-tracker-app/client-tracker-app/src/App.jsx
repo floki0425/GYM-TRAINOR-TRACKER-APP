@@ -1,39 +1,40 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import TopBar from "./components/TopBar";
+import ClientCard from "./components/ClientCard";
+import Workspace from "./components/Workspace";
 
-// Pages
-import ClientsPanel from "./components/ClientsPanel";
+import ProgressPanel from "./components/workspace/ProgressPanel";
 import CheckinsPanel from "./components/workspace/CheckinsPanel";
+import ProgramPanel from "./components/workspace/ProgramPanel";
 import MealPlanPanel from "./components/workspace/MealPlanPanel";
 import NotesPanel from "./components/workspace/NotesPanel";
-import ProgressPanel from "./components/workspace/ProgressPanel";
-import ClientCard from "./components/ClientCard";
-import ProgramPanel from "./components/workspace/ProgramPanel";
-import AddCheckin from "./components/workspace/AddCheckin";
 import CheckinListContent from "./components/workspace/CheckinListContent";
+import AddCheckin from "./components/workspace/AddCheckin";
+import AddClient from "./components/AddClient";
 
 function App() {
   return (
-   <Routes>
-      {/* Layout route */}
-      <Route path="/" element={<ClientCard />}/>
-      <Route path="/clients/:id" element={<ClientCard/>}>
-        {/* default tab */}
-   
+    <Routes>
+      <Route path="/" element={<Navigate to="/clients/1/workspace/progress" replace />} />
+
+      <Route path="/clients/:id" element={<ClientCard />}>
         <Route index element={<Navigate to="workspace/progress" replace />} />
 
-        {/* Tabs */}
-        <Route path="add" element={<AddCheckin />} />
-        <Route path="workspace/progress" element={<ProgressPanel />} />
-        <Route path="workspace/checkins" element={<CheckinsPanel />} >
-          <Route path=":checkinId" element={<CheckinListContent />} /> 
+        {/* WORKSPACE (parent) */}
+        <Route path="workspace" element={<Workspace />}>
+          <Route path="progress" element={<ProgressPanel />} />
+          <Route path="checkins" element={<CheckinsPanel />}>
+            <Route path=":checkinId" element={<CheckinListContent />} />
+          </Route>
+          <Route path="program" element={<ProgramPanel />} />
+          <Route path="meal-plan" element={<MealPlanPanel />} />
+          <Route path="notes" element={<NotesPanel />} />
         </Route>
-        <Route path="workspace/program" element={<ProgramPanel />} />
-        <Route path="workspace/meal-plan" element={<MealPlanPanel />} />
-        <Route path="workspace/notes" element={<NotesPanel />} />
+
+        {/* MODAL (sibling of workspace) */}
+        <Route path="AddClient" element={<AddClient />} />
+        <Route path="add" element={<AddCheckin />} />
       </Route>
 
-      {/* safety fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

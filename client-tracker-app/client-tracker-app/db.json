@@ -160,6 +160,51 @@
       "clientId": 2,
       "date": "2026-02-24",
       "weightKg": 12
+    },
+    {
+      "id": "09ab",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "f26c",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "de45",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "cb5f",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "ab14",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "457e",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "7b2f",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "07f5",
+      "date": "2026-02-24",
+      "weightKg": 12
+    },
+    {
+      "id": "92d3",
+      "date": "2026-02-24",
+      "weightKg": 12
     }
   ],
   "programs": [
