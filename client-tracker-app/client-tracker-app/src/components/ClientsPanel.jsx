@@ -2,7 +2,7 @@ import React from 'react'
 import search from '../assets/search.png'
 
         
-const ClientsPanel = ({ clients, onSelectClient, selectedClientId, loading,setClientFilter,filteredClients,clientFilter,addClient,closeAddClient}) => {
+const ClientsPanel = ({ clients, onSelectClient, selectedClientId, loading,setClientFilter,filteredClients,clientFilter,addClient,deleteClient}) => {
  
 
 
@@ -122,7 +122,10 @@ const ClientsPanel = ({ clients, onSelectClient, selectedClientId, loading,setCl
                 </div>
 
                 <p className="mt-1 text-xs text-slate-600">
-                  {client.goalType} • ID {client.id}
+                  {client.goalType} <p> Started since<span className="ml-2 rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-s font-semibold text-indigo-700 ">
+                        {client.startDate}         
+                      </span> </p>
+                   
                 </p>
               </div>
             </div>
@@ -145,6 +148,7 @@ const ClientsPanel = ({ clients, onSelectClient, selectedClientId, loading,setCl
       </button>
 
       <button
+        onClick={deleteClient}
         className="flex-1 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-100"
         disabled={!selectedClientId}
         title={!selectedClientId ? "Select a client first" : "Delete selected client"}
