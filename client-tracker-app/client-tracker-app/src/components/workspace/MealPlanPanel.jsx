@@ -1,16 +1,34 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { getMealplan, getMealplanByClientId } from '../../api/mealPlanApi';
-import { useOutletContext } from 'react-router-dom';
+import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 const MealPlanPanel = () => {
   const [mealplan,setMealplan] = useState([]);
   const [loading,setLoading] = useState(false);
   const [error,setError] = useState(null)
-  const {selectedClientId} = useOutletContext();
+  const {mealplanId} = useParams()
+  const selectedMealplanId = mealplanId ? mealplanId : null;
+  const navigate = useNavigate();
+  const ignoreRef = useRef(false);
+
+
+const {selectedClientId,addMealplan,closeDrawer} = useOutletContext();
+
+console.log(selectedMealplanId)
+
+  const mealplanOpenList = (id) => {
+    navigate(`${id}`)
+  }
 
   const clientMealPlan = mealplan.find((plan)=> plan.clientId === selectedClientId)
 
-  const ignoreRef = useRef(false)
+
+  const deleteMealplan = (id)=>{
+    setMealplan((prevMealplan)=>{
+      return prevMealplan.filter((meal)=>meal.id !== id)
+    })
+  }
+
 
    const loadMealplan = useCallback(async () => {
       try{
@@ -39,104 +57,144 @@ useEffect(()=>{
 },[selectedClientId])
   
 
-
- 
-
-  return (
-<div className="tab-panel rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-  {loading ? (
-    <p className="text-sm text-slate-600">Loading…</p>
-  ) : (
-    <div>
-      {!clientMealPlan ? (
-        <div className="meal-header flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-semibold text-slate-900">Meal Plan</h3>
-            <p className="mt-1 text-sm text-slate-600">
-              No meal plan yet. Create one to set calories and macros.
-            </p>
-          </div>
-
-          <div className="meal-actions flex gap-2">
-            <button className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800">
-              + New Meal Plan
-            </button>
-            <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-              Edit
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {/* Summary */}
-          <div className="meal-summary rounded-2xl border border-slate-200 bg-slate-50 p-5">
-            <div className="meal-summary__title flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
-              <p className="text-sm font-semibold text-slate-900">
-                {clientMealPlan.goal}
-              </p>
-              <p className="text-sm text-slate-700">
-                Calories:{" "}
-                <span className="font-semibold text-slate-900">
-                  {clientMealPlan.calories}
-                </span>
+if(loading) return <p className="p-6 text-sm text-slate-600">Loading…</p>;
+if(error) return <p>{error}</p>
+if(!selectedClientId) return 
+        <div className="p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900">Meal Plan</h3>
+              <p className="mt-1 text-sm text-slate-600">
+                No meal plan yet. Create one to set calories and macros.
               </p>
             </div>
 
-            <div className="meal-summary__macros mt-4 flex flex-wrap gap-2">
-              <div className="macro-chip rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
-                Protein: {clientMealPlan.protein}
-              </div>
-              <div className="macro-chip rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
-                Carbs: {clientMealPlan.carbs}
-              </div>
-              <div className="macro-chip rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
-                Fat: {clientMealPlan.fat}
-              </div>
+            <div className="flex gap-2">
+              <button
+                onClick={addMealplan}
+                className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800"
+              >
+                + New Meal Plan
+              </button>
             </div>
           </div>
-
-          {/* Meals */}
-          <div className="space-y-4">
-            {clientMealPlan.meals.map((meals, mealIndex) => {
-              return (
-                <div key={mealIndex} className="meal-list">
-                  <div className="meal-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <div className="meal-card__header flex items-center justify-between">
-                      <h4 className="text-sm font-semibold text-slate-900">
-                        {meals.name}
-                      </h4>
-                      <span className="rounded-full bg-slate-100 px-2 py-1 text-[11px] font-semibold text-slate-600">
-                        {meals.items.length} items
-                      </span>
-                    </div>
-
-                    <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                      {meals.items.map((items, itemIndex) => {
-                        return (
-                          <div key={itemIndex}>
-                            <p className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-800">
-                              {items}
-                            </p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Add meal */}
-          <button className="meal-add w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-teal-700 hover:bg-slate-50">
-            + Add Meal
-          </button>
         </div>
-      )}
-    </div>
-  )}
-</div>
-  )
+
+ const outletContext = {
+  selectedClientId,clientMealPlan,loadMealplan,closeDrawer
 }
 
+
+
+
+  return (  
+ <div className="min-h-screen p-6">
+   <div className='rounded-xl border border-slate-200 p-3'>
+      <div className="flex justify-end">
+    <button
+      onClick={addMealplan}
+      className="rounded-xl bg-teal-600 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800 mb-4"
+    >
+      + New Meal Plan
+    </button>
+    </div>
+      {!selectedMealplanId ? ( <div className="mx-auto max-w-5xl space-y-4">
+     {mealplan.map((c) => {
+        return (
+          <div
+            key={c.id}
+            onClick={() => mealplanOpenList(c.id)}
+            className="cursor-pointer rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:bg-slate-50"
+          >
+            <div className="flex flex-col gap-3  md:flex-row md:items-start md:justify-between">
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900">Meal Plan</h3>
+                <p className="mt-1 text-sm text-slate-600">
+                  Structured nutrition plan for client progress and consistency.
+                </p>
+              </div>
+
+                <button
+                type="button"
+                className="self-start rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                 onClick={(e) => {
+                  e.stopPropagation();
+                  deleteMealplan(c.id);
+                }}
+              >
+                Delete
+              </button>
+
+              <button
+                type="button"
+                className="self-start rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Edit Plan
+              </button>
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">
+                  Goal
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                  {c.goal}
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">
+                  Calories
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                  {c.calories}
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">
+                  Protein
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                  {c.protein}
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">
+                  Carbs 
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                  {c.carbs} 
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">
+                  Fats
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                    {c.fat}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+
+   </div> 
+  
+    
+  ) : <Outlet context={outletContext}/>}
+   </div>
+ 
+  
+  
+  </div>
+
+
+)
+}
 export default MealPlanPanel
