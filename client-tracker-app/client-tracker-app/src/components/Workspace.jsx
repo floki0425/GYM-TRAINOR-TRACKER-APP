@@ -1,12 +1,13 @@
 import { NavLink, Outlet, useOutletContext } from "react-router-dom";
+import AddMealplan from "./modal/AddMealplan";
 
 const Workspace = () => {
 
-  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer} = useOutletContext()
+  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer,addMealplan} = useOutletContext()
 
 
  const outletContext={
-  selectedClient,selectedClientId,loading,closeDrawer,
+  selectedClient,selectedClientId,loading,closeDrawer,addMealplan
  }
 
  if(!selectedClient) return   <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -42,7 +43,7 @@ const Workspace = () => {
               {selectedClient.name}
             </h1>
             <p className="mt-1 text-sm text-slate-600">
-              {selectedClient.goalType} • {selectedClient.status} • Since Feb 4, 2026
+              {selectedClient.goalType} • {selectedClient.status} • Since {selectedClient.startDate}
             </p>
           </div>
 
