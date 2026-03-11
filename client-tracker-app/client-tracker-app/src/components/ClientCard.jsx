@@ -17,7 +17,7 @@ const ClientCard = () => {
 
   const ignoreRef = useRef(false);
   const navigate = useNavigate();
-  const selectedClientId = id ? Number(id) : null;
+  const selectedClientId = id ? id : null;
 
   const onSelectClient = (id) => {
    navigate(`/clients/${id}`);
@@ -26,24 +26,29 @@ const ClientCard = () => {
   const openDrawer = ()=>{
    navigate("add")
  }
+  const addClient = ()=>{
+   navigate("addclient")
+ }
+ const addMealplan = ()=>{
+   navigate("addmealplan")
+ }
 
  const closeDrawer = ()=>{
    navigate(-1)
  }
 
- const addClient = ()=>{
-   navigate("AddClient")
- }
 
-  const closeAddClient = () => {
-    navigate(-1)
-  }
+
  
 
-  const selectedClient = clients.find((c) => Number(c.id) === selectedClientId);
+  const selectedClient = clients.find((c) => c.id === selectedClientId);
 
 
-
+  const deleteClient = ()=>{
+    setClients ((prevClient)=>{
+      return prevClient.filter((client)=>client.id !== selectedClientId)
+    })
+  }
 
   const filtered = (filter)=>{
     return clients.filter((c)=>{
@@ -89,7 +94,10 @@ const ClientCard = () => {
     selectedClientId,
     openDrawer,
     closeDrawer,
-  closeAddClient}
+    loadClients,
+   addMealplan,
+
+}
 
  
 
@@ -109,6 +117,7 @@ const ClientCard = () => {
       selectedClient={selectedClient}
       selectedClientId={selectedClientId}
       addClient={addClient}
+      deleteClient={deleteClient}
       
        
     />
