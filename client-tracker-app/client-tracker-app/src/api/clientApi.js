@@ -5,7 +5,7 @@ export async function getClients(){
 }
 
 export async function createClients(payload) {
-  return http("/checkins",{
+  return http("/clients",{
     method: "POST",
     body: JSON.stringify(payload)
   });
