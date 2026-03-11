@@ -3,15 +3,13 @@ import { Outlet, useOutletContext } from 'react-router-dom'
 const CheckinListContent = () => {
 const {openDrawer, closeDrawer,loadCheckin,selectedClientId,selectedClient} = useOutletContext();
 
-const outletContext = {
-  openDrawer,closeDrawer,loadCheckin,selectedClientId,selectedClient
-}
 
 
 
+ 
 
   return (
-  <div className="bg-slate-50">
+  <div className="">
   <div className="mx-auto max-w-6xl space-y-6 p-6">
     {/* ================= HEADER ================= */}
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">

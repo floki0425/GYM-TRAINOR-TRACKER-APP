@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import AddCheckin from './AddCheckin'
+import AddCheckin from '../modal/AddCheckin'
 import { getCheckinByClientId } from '../../api/checkinApi'
 import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 
@@ -14,27 +14,11 @@ const ignoreRef = useRef(false);
 
 const {selectedClientId,selectedClient} = useOutletContext();
 
-
-
-
-const selectedCheckin = checkin.find(x => x.id === selectedCheckinId)
-
-
-
-
 const openList = (id) =>{
   navigate(`${id}`)
 }
 
-
- 
-
- 
-
-
-const checkInClient = checkin.find((f)=>Number(f.clientId) === selectedClientId)
-
-
+const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
 
 console.log(checkInClient)
 
@@ -68,14 +52,34 @@ useEffect(()=>{
 
 if(loading)return <div>loading..</div>
 if(error) return <p>{error}</p>
-if (!checkInClient) return "Select a client"
+if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <h3 className="text-lg font-semibold text-slate-900">No check-ins yet</h3>
+      <p className="mt-2 text-sm text-slate-600">
+        Add the first weekly check-in to start tracking progress.
+      </p>
+
+      <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-sm text-slate-500">
+        Tip: Track <span className="font-semibold text-slate-700">weight</span> +
+        <span className="font-semibold text-slate-700"> waist</span> +{" "}
+        <span className="font-semibold text-slate-700">adherence</span> for the fastest insights.
+      </div>
+
+      <div className="mt-6 flex gap-2">
+        <button className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800">
+          + Add Check-in
+        </button>
+        <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+          Learn More
+        </button>
+      </div>
+    </div>
 
  const outletContext = {
-  loadCheckin,selectedClientId,selectedClient
+  selectedClientId,selectedClient
 }
 
   return (
- <div className="min-h-screen bg-slate-50 p-6">
+ <div className="min-h-screen  p-6">
   {/* PAGE CONTAINER */}
   {!selectedCheckinId ? (
     <div className="mx-auto max-w-5xl space-y-4">
@@ -90,10 +94,13 @@ if (!checkInClient) return "Select a client"
               {/* Left: Title + Meta */}
               <button className="text-left">
                 <div className="space-y-1">
-                  <h2 className="text-lg font-semibold text-slate-900">
-                    Weekly Check-In — {c.id}
-                  </h2>
-                  <p className="text-sm text-slate-600">
+                   <p>
+                      Check in   
+                      <span className="ml-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-s font-semibold text-indigo-700 ">
+                        {c.date}         
+                      </span> 
+                    </p> 
+                  <p className="text-sm text-slate-600 mt-2">
                     Goal: {selectedClient.goalType}{" "}
                     <span className="text-slate-300">|</span>{" "}
                     {selectedClient.status}{" "}

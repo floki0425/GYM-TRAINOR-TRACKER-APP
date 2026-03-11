@@ -11,7 +11,7 @@ const {selectedClientId} = useOutletContext()
 const ignoreRef = useRef(false);
 
 
-const clientProgram = program.find((p)=>p.clientId === selectedClientId)
+const clientProgram = program.find((p)=> p.clientId === selectedClientId)
 
 
 
