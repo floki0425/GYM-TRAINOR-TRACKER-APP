@@ -8,8 +8,12 @@ import ProgramPanel from "./components/workspace/ProgramPanel";
 import MealPlanPanel from "./components/workspace/MealPlanPanel";
 import NotesPanel from "./components/workspace/NotesPanel";
 import CheckinListContent from "./components/workspace/CheckinListContent";
-import AddCheckin from "./components/workspace/AddCheckin";
-import AddClient from "./components/AddClient";
+import AddClient from "./components/modal/AddClient";
+import AddCheckin from "./components/modal/AddCheckin";
+import AddMealplan from "./components/modal/AddMealplan";
+import MealplanListContent from "./components/workspace/MealplanListContent";
+
+
 
 function App() {
   return (
@@ -26,13 +30,16 @@ function App() {
             <Route path=":checkinId" element={<CheckinListContent />} />
           </Route>
           <Route path="program" element={<ProgramPanel />} />
-          <Route path="meal-plan" element={<MealPlanPanel />} />
+          <Route path="meal-plan" element={<MealPlanPanel />} >
+             <Route path=":mealplanId" element={<MealplanListContent/>} />
+          </Route>
           <Route path="notes" element={<NotesPanel />} />
         </Route>
 
         {/* MODAL (sibling of workspace) */}
-        <Route path="AddClient" element={<AddClient />} />
+        <Route path="addclient" element={<AddClient />} />
         <Route path="add" element={<AddCheckin />} />
+        <Route path="addmealplan" element={<AddMealplan />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
