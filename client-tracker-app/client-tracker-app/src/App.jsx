@@ -1,77 +1,50 @@
-import React, { useEffect, useState } from "react";
-import ClientsPanel from "./components/ClientsPanel";
+import { Routes, Route, Navigate } from "react-router-dom";
+import ClientCard from "./components/ClientCard";
 import Workspace from "./components/Workspace";
-import { getClients } from "./api/clientApi.js";
-import MealPlanPanel from "./components/workspace/MealPlanPanel.jsx";
-import TopBar from "./components/TopBar.jsx";
 
-const App = () => {
-  const [clients, setClients] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+import ProgressPanel from "./components/workspace/ProgressPanel";
+import CheckinsPanel from "./components/workspace/CheckinsPanel";
+import ProgramPanel from "./components/workspace/ProgramPanel";
+import MealPlanPanel from "./components/workspace/MealPlanPanel";
+import NotesPanel from "./components/workspace/NotesPanel";
+import CheckinListContent from "./components/workspace/CheckinListContent";
+import AddClient from "./components/modal/AddClient";
+import AddCheckin from "./components/modal/AddCheckin";
+import AddMealplan from "./components/modal/AddMealplan";
+import MealplanListContent from "./components/workspace/MealplanListContent";
 
-  const [selectedClientId, setSelectedClientId] = useState(null);
- 
-   
- 
 
-  useEffect(() => {
-    let ignore = false;
 
-    async function loadClients() {
-      try {
-        setLoading(true);
-        setError(null);
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/clients/1/workspace/progress" replace />} />
 
-        const data = await getClients();
-        
-        if (!ignore) setClients(data);
-      } catch (err) {
-        if (!ignore) setError(err?.message ?? "Failed to load clients");
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    }
+      <Route path="/clients/:id" element={<ClientCard />}>
+        <Route index element={<Navigate to="workspace/progress" replace />} />
 
-    loadClients();
+        {/* WORKSPACE (parent) */}
+        <Route path="workspace" element={<Workspace />}>
+          <Route path="progress" element={<ProgressPanel />} />
+          <Route path="checkins" element={<CheckinsPanel />}>
+            <Route path=":checkinId" element={<CheckinListContent />} />
+          </Route>
+          <Route path="program" element={<ProgramPanel />} />
+          <Route path="meal-plan" element={<MealPlanPanel />} >
+             <Route path=":mealplanId" element={<MealplanListContent/>} />
+          </Route>
+          <Route path="notes" element={<NotesPanel />} />
+        </Route>
 
-    return () => {
-      ignore = true;
-    };
-  }, []);
+        {/* MODAL (sibling of workspace) */}
+        <Route path="addclient" element={<AddClient />} />
+        <Route path="add" element={<AddCheckin />} />
+        <Route path="addmealplan" element={<AddMealplan />} />
+      </Route>
 
-  const onSelectClient = (id) => {
-    setSelectedClientId(id);
-  };
-
-  const selectedClient = clients.find((c) => c.id === selectedClientId);
-
- 
-
-  return (<>
-      <TopBar/>
-  
-      <div className="flex ">
-      <ClientsPanel
-        clients={clients}
-        selectedClientId={selectedClientId}
-        onSelectClient={onSelectClient}
-        loading={loading}
-      />
-
-      <Workspace 
-      selectedClient={selectedClient}
-      selectedClientId={selectedClientId}
-       loading={loading}
-      />
-
-    
-
-  </div>
-    </>
-  
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
-};
+}
 
 export default App;
-

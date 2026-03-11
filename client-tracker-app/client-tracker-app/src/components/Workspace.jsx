@@ -1,105 +1,144 @@
-import React, { useEffect }  from "react";
-import ProgressPanel from "./workspace/ProgressPanel";
-import ProgramPanel from "./workspace/ProgramPanel";
-import MealPlanPanel from "./workspace/MealPlanPanel";
-import { useState } from "react";
-import CheckinsPanel from "./workspace/CheckinsPanel";
-import NotesPanel from "./workspace/NotesPanel";
+import { NavLink, Outlet, useOutletContext } from "react-router-dom";
+import AddMealplan from "./modal/AddMealplan";
 
-const Workspace = ({selectedClient,selectedClientId,loading}) => {
+const Workspace = () => {
 
-  const [activeTab,setActiveTab] = useState('progress');
+  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer,addMealplan} = useOutletContext()
 
 
-const numbers = [1,2,3,4,5]
+ const outletContext={
+  selectedClient,selectedClientId,loading,closeDrawer,addMealplan
+ }
 
+ if(!selectedClient) return   <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <h2 className="text-lg font-semibold text-slate-900">Select a client</h2>
+      <p className="mt-2 text-sm text-slate-600">
+        Choose a client from the left to view progress, program, and meal plan.
+      </p>
 
-
-
-  useEffect(() => {
-  if (selectedClientId === null) return;
-
-  setActiveTab("progress")
- 
-}, [selectedClientId])
-
-const panels = {
-  progress: <ProgressPanel />,
-  checkins: <CheckinsPanel/>,
-  program: <ProgramPanel   
-        selectedClientId={selectedClientId}
-        selectedClient={selectedClient} 
-        />,
-  mealplan: <MealPlanPanel 
-        selectedClientId={selectedClientId}
-        selectedClient={selectedClient}
-        loading={loading} 
-        />,
-  notes: <NotesPanel/>
-};
-
-
+      <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-sm text-slate-500">
+        Tip: Start with <span className="font-medium text-slate-700">Check-ins</span> to track weekly progress.
+      </div>
+    </div>
+  
 
   return (
-    <div className="flex workspace flex-1  bg-white p-6">
-      
-      {/* 1) EMPTY STATE (show when no client selected) */}
-      {!selectedClient  ?  (<div className="workspace__empty border rounded-xl p-6 ">
-        <h2 className="text-lg font-semibold">select a client</h2>
-        <p className="text-sm text-slate-600">
-          Choose a client from the left to view progress, program, and meal plan.
-        </p>
+  <div className="flex workspace flex-1 bg-slate-50 p-6">
+  {/* EMPTY STATE */}
+ {!selectedClientId ? ( <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <h2 className="text-lg font-semibold text-slate-900">Select a client</h2>
+      <p className="mt-2 text-sm text-slate-600">
+        Choose a client from the left to view progress, program, and meal plan.
+      </p>
+
+      <div className="mt-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-sm text-slate-500">
+        Tip: Start with <span className="font-medium text-slate-700">Check-ins</span> to track weekly progress.
       </div>
-        
-        ) : (
-       
-        
-      <div className="workspace__content  ">
-        
-        {/* Client Header */}
-        <div className="workspace__header border-b pb-4">
+    </div>): (<div className="workspace__content mx-auto w-full max-w-5xl">
+      {/* HEADER CARD */}
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="workspace__title">
-            <h1 className="text-2xl font-semibold">{selectedClient.name}</h1>
-            <p className="text-sm text-slate-600">
-              {selectedClient.goalType} • {selectedClient.status} • Since Feb 4, 2026
+            <h1 className="text-2xl font-semibold text-slate-900">
+              {selectedClient.name}
+            </h1>
+            <p className="mt-1 text-sm text-slate-600">
+              {selectedClient.goalType} • {selectedClient.status} • Since {selectedClient.startDate}
             </p>
           </div>
 
-          <div className="workspace__actions mt-4 flex gap-2">
-            <button className="rounded-xl bg-blue-600 px-4 py-2 text-white">
+          <div className="workspace__actions flex gap-2">
+            <button
+              onClick={openDrawer}
+              disabled={!selectedClient}
+              className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800 disabled:opacity-50"
+            >
               + Add Check-in
             </button>
-            <button className="rounded-xl border px-4 py-2">
+
+            <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
               Edit Client
             </button>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="workspace__tabs mt-4 flex gap-4 border-b pb-2 text-sm">
-         <button onClick={() => setActiveTab("progress")}  className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "progress" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Progress</button>
-          <button onClick={() => setActiveTab("checkins")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "checkins" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Check-ins</button>
-          <button onClick={() => setActiveTab("program")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "program" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Program</button>
-          <button onClick={() => setActiveTab("mealplan")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "mealplan" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Meal Plan</button>
-          <button onClick={() => setActiveTab("notes")} className={`hover:text-black transition-colors pb-2 cursor-pointer text-xs ${activeTab === "notes" ? "text-blue-500 pb-2 border-b-2" : "text-gray-400" } `}>Notes</button>
-        </div>
-        
+        {/* TABS (Teal Active + subtle) */}
+        <div className="mt-6 flex flex-wrap gap-2 border-t border-slate-100 pt-4 text-sm">
+          <NavLink
+            to={`/clients/${selectedClientId}/workspace/progress`}
+            className={({ isActive }) =>
+              `rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                isActive
+                  ? "bg-teal-600 text-white"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              }`
+            }
+          >
+            Progress
+          </NavLink>
 
-        {/* Tab Content Area */}
-        <div className="workspace__tabContent mt-6">
-          
-          {/* Progress Tab (placeholder) */}
-          {panels[activeTab]}
-        
-  
+          <NavLink
+            to={`/clients/${selectedClientId}/workspace/checkins`}
+            className={({ isActive }) =>
+              `rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                isActive
+                  ? "bg-teal-600 text-white"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              }`
+            }
+          >
+            Check-ins
+          </NavLink>
 
+          <NavLink
+            to={`/clients/${selectedClientId}/workspace/program`}
+            className={({ isActive }) =>
+              `rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                isActive
+                  ? "bg-teal-600 text-white"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              }`
+            }
+          >
+            Program
+          </NavLink>
 
+          <NavLink
+            to={`/clients/${selectedClientId}/workspace/meal-plan`}
+            className={({ isActive }) =>
+              `rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                isActive
+                  ? "bg-teal-600 text-white"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              }`
+            }
+          >
+            Meal Plan
+          </NavLink>
+
+          <NavLink
+            to={`/clients/${selectedClientId}/workspace/notes`}
+            className={({ isActive }) =>
+              `rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                isActive
+                  ? "bg-teal-600 text-white"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              }`
+            }
+          >
+            Notes
+          </NavLink>
         </div>
       </div>
 
-      )}
+      {/* TAB CONTENT CARD */}
+      <div className="workspace__tabContent mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <Outlet context={outletContext} />
+      </div>
+    </div>)}
+    
 
-    </div>
+</div>
   );
 };
 
