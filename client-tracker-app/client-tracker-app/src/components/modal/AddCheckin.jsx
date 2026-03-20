@@ -76,25 +76,20 @@ const updateField =  (name,value) => {
 
 
   return (
-  <div>
-  {/* ===== Overlay ===== */}
+<div>
   <div className="fixed inset-0 z-50">
-    {/* Background */}
     <div
       className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm"
       onClick={closeDrawer}
     />
 
-    {/* Drawer Container */}
-    <div className="absolute inset-y-0 right-0 flex w-full max-w-3xl flex-col bg-white shadow-2xl">
-      {/* ===== Sticky Header ===== */}
-      <div className="sticky top-0 z-10 border-b border-slate-200 bg-white p-6">
-        <div className="flex items-start justify-between">
+    <div className="absolute inset-y-0 right-0 flex w-full max-w-2xl flex-col bg-white shadow-2xl">
+      {/* Header */}
+      <div className="border-b border-slate-200 bg-white p-6">
+        <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="text-lg font-semibold text-slate-900">Add Check-in</h2>
-            <p className="mt-1 text-sm text-slate-600">
-              Log this week’s progress and feedback.
-            </p>
+            <p className="mt-1 text-sm text-slate-600">Log weekly progress.</p>
           </div>
 
           <button
@@ -107,14 +102,14 @@ const updateField =  (name,value) => {
         </div>
       </div>
 
-      {/* ===== Scrollable Body ===== */}
-      <div className="flex-1 overflow-y-auto bg-slate-50 p-6 space-y-6">
-        {/* Body Metrics */}
+      {/* Body */}
+      <div className="flex-1 space-y-5 overflow-y-auto bg-slate-50 p-6">
+        {/* Required fields */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 className="text-sm font-semibold text-slate-900">Body Metrics</h3>
-              <p className="mt-1 text-xs text-slate-500">Required: weight + date</p>
+              <h3 className="text-sm font-semibold text-slate-900">Check-in Info</h3>
+              <p className="mt-1 text-xs text-slate-500">Required: weight and date</p>
             </div>
 
             <div className="text-right">
@@ -137,18 +132,6 @@ const updateField =  (name,value) => {
             />
 
             <input
-              type="number"
-              placeholder="Waist (in)"
-              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
-            />
-
-            <input
-              type="number"
-              placeholder="Body Fat (%)"
-              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
-            />
-
-            <input
               value={form.date}
               onChange={(e) => updateField("date", e.target.value)}
               type="date"
@@ -157,53 +140,48 @@ const updateField =  (name,value) => {
           </div>
         </div>
 
-        {/* Objective Metrics */}
+        {/* Core metrics */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-slate-900">Objective</h3>
+          <h3 className="text-sm font-semibold text-slate-900">Core Metrics</h3>
 
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <input
+              type="number"
+              placeholder="Waist (in)"
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
+            />
+
             <input
               type="number"
               placeholder="Training Days (0–7)"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
+
             <input
               type="number"
               placeholder="Steps Avg"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
+
             <input
               type="number"
               placeholder="Sleep Avg (hrs)"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
-            <input
-              type="number"
-              placeholder="Calories Target"
-              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
-            />
           </div>
         </div>
 
-        {/* Subjective */}
+        {/* Feedback */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h3 className="text-sm font-semibold text-slate-900">Subjective Feedback</h3>
+          <h3 className="text-sm font-semibold text-slate-900">Feedback</h3>
 
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <select className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200">
-              <option>Adherence (1–5)</option>
+              <option>Plan Adherence (1–5)</option>
             </select>
 
             <select className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200">
               <option>Energy (1–5)</option>
-            </select>
-
-            <select className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200">
-              <option>Stress (1–5)</option>
-            </select>
-
-            <select className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200">
-              <option>Hunger (1–5)</option>
             </select>
           </div>
         </div>
@@ -214,31 +192,22 @@ const updateField =  (name,value) => {
 
           <textarea
             rows={4}
-            placeholder="Client Notes..."
+            placeholder="Coach notes..."
             className="mt-3 w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
-          />
-
-          <textarea
-            rows={3}
-            placeholder="Trainer Notes..."
-            className="mt-4 w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
           />
         </div>
       </div>
 
-      {/* ===== Sticky Footer ===== */}
-      <div className="sticky bottom-0 border-t border-slate-200 bg-white p-6 flex items-center justify-between">
-        <button
-          onClick={closeDrawer}
-          className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-        >
-          Cancel
-        </button>
-
-        <div className="flex gap-2">
-          <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-            Save Draft
+      {/* Footer */}
+      <div className="border-t border-slate-200 bg-white p-6">
+        <div className="flex items-center justify-between gap-3">
+          <button
+            onClick={closeDrawer}
+            className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            Cancel
           </button>
+
           <button
             onClick={() => {
               saveCheckin();

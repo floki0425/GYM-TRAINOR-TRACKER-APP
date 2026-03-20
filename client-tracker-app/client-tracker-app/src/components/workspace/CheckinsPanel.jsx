@@ -85,42 +85,52 @@ if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 
     <div className="mx-auto max-w-5xl space-y-4">
       {checkin.map((c) => {
         return (
-          <div
-            key={c.id}
-            onClick={() => openList(c.id)}
-            className="cursor-pointer rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:bg-slate-50"
-          >
-            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-              {/* Left: Title + Meta */}
-              <button className="text-left">
-                <div className="space-y-1">
-                   <p>
-                      Check in   
-                      <span className="ml-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-s font-semibold text-indigo-700 ">
-                        {c.date}         
-                      </span> 
-                    </p> 
-                  <p className="text-sm text-slate-600 mt-2">
-                    Goal: {selectedClient.goalType}{" "}
-                    <span className="text-slate-300">|</span>{" "}
-                    {selectedClient.status}{" "}
-                    <span className="text-slate-300">|</span> Last Check-in: 9 days ago
-                  </p>
-                </div>
-              </button>
+       <div
+  key={c.id}
+  onClick={() => openList(c.id)}
+  className="cursor-pointer rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:bg-slate-50"
+>
+  <div className="flex items-start justify-between gap-4">
+    <div className="min-w-0">
+      <div className="flex flex-wrap items-center gap-2">
+        <p className="text-sm font-semibold text-slate-900">Check-in</p>
+        <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+          {c.date}
+        </span>
+      </div>
 
-              {/* Right: Actions */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
-                  <span className="text-sm">🔥</span> On Track
-                </span>
+      <p className="mt-2 text-sm text-slate-600">
+        Goal: {selectedClient.goalType} <span className="text-slate-300">|</span>{" "}
+        {selectedClient.status}
+      </p>
+    </div>
 
-                <button className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50">
-                  Edit
-                </button>
-              </div>
-            </div>
-          </div>
+    <div className="flex items-center gap-2">
+      <span className="inline-flex items-center rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+        On Track
+      </span>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+      >
+        Edit
+      </button>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          deleteCheckin(c.id);
+        }}
+        className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
         );
       })}
     </div>
