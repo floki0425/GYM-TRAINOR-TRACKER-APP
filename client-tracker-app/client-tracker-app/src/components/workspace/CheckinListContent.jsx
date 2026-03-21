@@ -1,12 +1,7 @@
 import React from 'react'
 import { Outlet, useOutletContext } from 'react-router-dom'
 const CheckinListContent = () => {
-const {openDrawer, closeDrawer,loadCheckin,selectedClientId,selectedClient} = useOutletContext();
-
-
-
-
- 
+const {selectedClient} = useOutletContext();
 
   return (
     
