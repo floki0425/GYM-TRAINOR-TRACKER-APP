@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState,useRef } from "react";
 
 
-import { getClients } from "../api/clientApi.js";
+import { deleteClients, getClients } from "../api/clientApi.js";
 import TopBar from "./TopBar.jsx";
 import ClientsPanel from "./ClientsPanel.jsx";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { http } from "../api/http.js";
 
 
 
@@ -13,6 +14,7 @@ const ClientCard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [clientFilter,setClientFilter] = useState("ALL");
+
  const {id} = useParams()
 
   const ignoreRef = useRef(false);
@@ -39,15 +41,27 @@ const ClientCard = () => {
 
 
 
- 
+  
 
   const selectedClient = clients.find((c) => c.id === selectedClientId);
+  
+  
 
+ 
 
-  const deleteClient = ()=>{
-    setClients ((prevClient)=>{
-      return prevClient.filter((client)=>client.id !== selectedClientId)
-    })
+  const deleteClient = async ()=>{
+    try {
+    await deleteClients(selectedClientId);
+    const remainingClients = clients.filter((c)=>c.id !== selectedClientId)
+    const nextClient = remainingClients[0]
+    setClients(remainingClients);
+    
+    if (remainingClients.length > 0) onSelectClient(nextClient.id);
+    if (remainingClients.length === 0 ) navigate("/clients")
+    } catch (error) {
+       setError(error?.message ?? "Failed to Delete client");
+    }
+   
   }
 
   const filtered = (filter)=>{
