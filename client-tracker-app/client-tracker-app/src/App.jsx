@@ -27,11 +27,15 @@ function App() {
         <Route path="workspace" element={<Workspace />}>
           <Route path="progress" element={<ProgressPanel />} />
           <Route path="checkins" element={<CheckinsPanel />}>
-            <Route path=":checkinId" element={<CheckinListContent />} />
+             <Route index element={null} />
+             <Route path=":checkinId" element={null} />
+             <Route path=":checkinId/details" element={<CheckinListContent />} />
           </Route>
           <Route path="program" element={<ProgramPanel />} />
           <Route path="meal-plan" element={<MealPlanPanel />} >
-             <Route path=":mealplanId" element={<MealplanListContent/>} />
+             <Route index element={null} />
+             <Route path=":mealplanId" element={null} />
+             <Route path=":mealplanId/mealdetails" element={<MealplanListContent/>} />
           </Route>
           <Route path="notes" element={<NotesPanel />} />
         </Route>

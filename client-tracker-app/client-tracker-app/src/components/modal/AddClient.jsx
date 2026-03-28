@@ -10,12 +10,12 @@ const AddClient = ({}) => {
      name:"",
      goalType:"",
      status:"",
-     startDate: "2026-07-04"
+     startDate: ""
 })
 
 
 
-console.log(form)
+
 
 const saveClients = async () => {
   const nextErrors = {};
@@ -152,8 +152,8 @@ const {
         <div>
           <label className="text-xs font-semibold text-slate-700">Start Date</label>
           <input
-            value={form.date}
-            onChange={(e)=>{"date",e.target.value}}
+            value={form.startDate }
+            onChange={(e)=>updateField("startDate", e.target.value)}
             type="date"
             className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200"
           />

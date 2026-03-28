@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { getMealplan, getMealplanByClientId } from '../../api/mealPlanApi';
+import { deleteMealplan, getMealplan, getMealplanByClientId } from '../../api/mealPlanApi';
 import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 const MealPlanPanel = () => {
@@ -10,23 +10,42 @@ const MealPlanPanel = () => {
   const selectedMealplanId = mealplanId ? mealplanId : null;
   const navigate = useNavigate();
   const ignoreRef = useRef(false);
-
-
 const {selectedClientId,addMealplan,closeDrawer} = useOutletContext();
 
+const clientMealPlan = mealplan.find((plan)=> plan.clientId === selectedClientId)
+const showDetails = location.pathname.endsWith("mealdetails")
 
 
-  const mealplanOpenList = (id) => {
-    navigate(`${id}`)
-  }
+const checkinList = (id)=>{
+  navigate(`/clients/${selectedClientId}/workspace/meal-plan/${id}`)
+}
 
-  const clientMealPlan = mealplan.find((plan)=> plan.clientId === selectedClientId)
+const openDetails = (id)=>{
+  navigate(`/clients/${selectedClientId}/workspace/meal-plan/${id}/mealdetails`)
+}
+  
 
-console.log(clientMealPlan)
-  const deleteMealplan = (id)=>{
-    setMealplan((prevMealplan)=>{
-      return prevMealplan.filter((meal)=>meal.id !== id)
-    })
+  
+  
+
+  const removeMealplan = async(id)=>{
+    try {
+       await deleteMealplan(id);
+        const remainingMealplan = mealplan.filter((f)=>f.id !== id);
+        const nextCheckin = remainingMealplan[0];
+        setMealplan(remainingMealplan);
+
+         if (remainingCheckins.length > 0) {
+      navigate(`/clients/${selectedClientId}/workspace/meal-plan/${nextCheckin.id}`);
+    } else {
+      navigate(`/clients/${selectedClientId}/workspace/meal-plan/`);
+    }
+
+    } catch (error) {
+       setError(error?.message ?? "Failed to delete mealplan") 
+    }
+
+   
   }
 
 
@@ -105,15 +124,21 @@ if(!selectedClientId) return
     </div>
 
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      {!selectedMealplanId ? (
+      {!showDetails? (
         <div className="space-y-4">
           {mealplan.map((c) => {
+             const isSelected = c.id === selectedMealplanId;
+
             return (
               <div
                 key={c.id}
-                onClick={() => mealplanOpenList(c.id)}
-                className="cursor-pointer rounded-2xl border border-slate-200 bg-white p-5 transition hover:bg-slate-50"
-              >
+                onClick={() => checkinList(c.id)}
+                className={`cursor-pointer rounded-2xl border border-slate-200  p-5 transition hover:bg-slate-50 ${
+                    isSelected 
+                   ? "border-teal-300 bg-teal-50"
+                  : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                }`}>
+
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <span className="rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
@@ -127,7 +152,19 @@ if(!selectedClientId) return
                     </p>
                   </div>
 
+                  
+                  {/* Actions */}
                   <div className="flex items-center gap-2">
+                     
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openDetails(c.id);
+                    }}
+                    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                  >
+                    View Details
+                  </button>
                     <button
                       type="button"
                       onClick={(e) => e.stopPropagation()}
@@ -140,7 +177,7 @@ if(!selectedClientId) return
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        deleteMealplan(c.id);
+                        removeMealplan(c.id);
                       }}
                       className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
                     >
@@ -152,9 +189,13 @@ if(!selectedClientId) return
             );
           })}
         </div>
-      ) : (
-        <Outlet context={outletContext} />
-      )}
+        ) : ( 
+          
+          <Outlet context={outletContext} />)}
+
+   
+       
+     
     </div>
   </div>
 </div>

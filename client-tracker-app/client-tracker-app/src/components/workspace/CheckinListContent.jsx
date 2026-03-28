@@ -1,7 +1,11 @@
 import React from 'react'
 import { Outlet, useOutletContext } from 'react-router-dom'
 const CheckinListContent = () => {
-const {selectedClient} = useOutletContext();
+const {selectedClient,closeDrawer} = useOutletContext();
+
+
+
+
 
   return (
     
@@ -9,6 +13,11 @@ const {selectedClient} = useOutletContext();
  
     <div className="">
       <div className="mx-auto max-w-6xl space-y-6 p-6">
+         <button
+   onClick={closeDrawer}
+   className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800">
+          {`<`}
+        </button>
         {/* Header */}
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">

@@ -15,3 +15,9 @@ export async function createMealplan(payload) {
     body: JSON.stringify(payload)
   });
 }
+
+export async function deleteMealplan(id){
+  return http(`/mealplan/${id}`,{
+    method: "DELETE"
+  })
+}
