@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { deleteMealplan, getMealplan, getMealplanByClientId } from '../../api/mealPlanApi';
+import { deleteMealplan,  getMealplanByClientId } from '../../api/mealPlanApi';
 import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 const MealPlanPanel = () => {
@@ -35,7 +35,7 @@ const openDetails = (id)=>{
         const nextCheckin = remainingMealplan[0];
         setMealplan(remainingMealplan);
 
-         if (remainingCheckins.length > 0) {
+         if (remainingMealplan.length > 0) {
       navigate(`/clients/${selectedClientId}/workspace/meal-plan/${nextCheckin.id}`);
     } else {
       navigate(`/clients/${selectedClientId}/workspace/meal-plan/`);
@@ -62,7 +62,7 @@ const openDetails = (id)=>{
       } finally{
         if(!ignoreRef.current) setLoading(false);
       }
-    },[])
+    },[selectedClientId])
 
 
 
@@ -73,7 +73,7 @@ useEffect(()=>{
    ignoreRef.current = true;
  }
 
-},[selectedClientId])
+},[loadMealplan])
   
 
 if(loading) return <p className="p-6 text-sm text-slate-600">Loading…</p>;

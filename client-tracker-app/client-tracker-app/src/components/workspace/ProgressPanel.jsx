@@ -3,7 +3,7 @@ import React from 'react'
 const ProgressPanel = () => {
   return (
   <div className="min-h-screen bg-slate-50 p-8">
-      <div className="mx-auto max-w-6xl rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="mx-auto max-w-6xl rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-6 flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-slate-500">Progress</p>

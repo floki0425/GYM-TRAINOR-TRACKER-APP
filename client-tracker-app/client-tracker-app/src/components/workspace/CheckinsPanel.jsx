@@ -77,7 +77,7 @@ useEffect(()=>{
   return () =>{
     ignoreRef.current = true;
   }
-},[selectedClientId])
+},[loadCheckin])
 
 if(loading)return <div>loading..</div>
 if(error) return <p>{error}</p>

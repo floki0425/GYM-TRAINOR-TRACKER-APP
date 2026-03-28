@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { getProgram, getProgramId } from '../../api/programApi';
+import { getProgramId } from '../../api/programApi';
 import { useOutletContext } from 'react-router-dom';
 
 const ProgramPanel = () => {
@@ -29,7 +29,7 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
             }finally{
               if(!ignoreRef.current) setLoading(false);
             }
-    },[])
+    },[selectedClientId])
 
 
   useEffect(()=>{
@@ -39,7 +39,7 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
     return ()=>{
       ignoreRef.current = true
     }
-  },[selectedClientId])
+  },[loadingProgram])
 
 
   console.log(program)

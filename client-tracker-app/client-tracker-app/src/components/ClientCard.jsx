@@ -5,7 +5,6 @@ import { deleteClients, getClients } from "../api/clientApi.js";
 import TopBar from "./TopBar.jsx";
 import ClientsPanel from "./ClientsPanel.jsx";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { http } from "../api/http.js";
 
 
 
@@ -116,7 +115,7 @@ const ClientCard = () => {
 
 }
 
- 
+ if(error) return <p>{error}</p>
 
   return (<>
       <TopBar/>

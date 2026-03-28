@@ -2,7 +2,7 @@ import React, {  useState } from 'react'
 import {  useOutletContext } from 'react-router-dom'
 import { createClients } from '../../api/clientApi';
 
-const AddClient = ({}) => {
+const AddClient = () => {
 
  const [error,setError] = useState(false);
  const [form,setForm] = useState({
@@ -59,8 +59,7 @@ const updateField = (client,value)=>{
 }
 
 const {
-  selectedClient,
-  selectedClientId,
+
   loadClients,
   closeDrawer
 } = useOutletContext();

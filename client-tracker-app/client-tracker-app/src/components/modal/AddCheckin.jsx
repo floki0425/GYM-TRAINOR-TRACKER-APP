@@ -3,7 +3,7 @@ import CheckinsPanel from '../workspace/CheckinsPanel'
 import { createCheckin } from '../../api/checkinApi'
 import { useOutletContext } from 'react-router-dom'
 
-const AddCheckin = ({}) => {
+const AddCheckin = () => {
 const [error,setError] = useState({})
 const [form,setForm] = useState({
         date:"2026-02-24", 
