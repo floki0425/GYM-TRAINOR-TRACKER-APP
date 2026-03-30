@@ -1,15 +1,40 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { getProgramId } from '../../api/programApi';
-import { useOutletContext } from 'react-router-dom';
+import { deleteProgram, getProgramId } from '../../api/programApi';
+import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 const ProgramPanel = () => {
   const [program,setProgram] = useState([])
   const [loading,setLoading] = useState(false);
   const [error, setError] = useState(null);
-const {selectedClientId} = useOutletContext()
+  const {programId} = useParams();
+  const selectedProgramId = programId? programId : null;
+  const navigate = useNavigate();
+  const ignoreRef = useRef(false);
+  const {selectedClientId} = useOutletContext()
 
-const ignoreRef = useRef(false);
+  const showDetails = location.pathname.endsWith("/programdetails")
 
+  const programList = (id)=>{
+    navigate(`/clients/${selectedClientId}/workspace/programs/${id}`)
+  }
+
+  const openProgramDetails = (id)=>{
+    navigate(`/clients/${selectedClientId}/workspace/programs/${id}/programdetails`);
+  }
+
+
+  const removeProgram = async(id)=>{
+    await deleteProgram(id)
+    const remainingProgram = program.filter((p)=>p.id !== id)
+    const nextProgram = remainingProgram[0];
+    setProgram(remainingProgram);
+
+    if (remainingProgram.length > 0) {
+      navigate(`/clients/${selectedClientId}/workspace/program/${nextProgram.id}`);
+    } else {
+      navigate(`/clients/${selectedClientId}/workspace/program`);
+    }
+  } 
 
 const clientProgram = program.find((p)=> p.clientId === selectedClientId)
 
@@ -42,15 +67,11 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
   },[loadingProgram])
 
 
-  console.log(program)
+ 
    if(loading) return <div>loading...</div>
    if(error) return <div>Error</div>
-  return (
-    
-
- 
-    <div className="tab-panel rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      {!clientProgram ? (
+   if(!clientProgram)
+     return 
         <div className="space-y-5">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -70,12 +91,22 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
             </div>
           </div>
         </div>
-      ) : (
-        <div className="space-y-5">
-          <div className="flex items-center justify-between gap-4">
+  
+
+
+  const outletContext = {
+    clientProgram
+  }
+
+  return (
+    
+
+ 
+    <div className="tab-panel rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+         <div className="flex items-center justify-between gap-4 mb-4">
             <div>
               <h3 className="text-lg font-semibold text-slate-900">Program</h3>
-              <p className="mt-1 text-sm text-slate-600">Weekly split overview</p>
+              <p className="mt-1 text-sm text-slate-600">Weekly split overvieW</p>
             </div>
 
             <div className="flex gap-2">
@@ -87,54 +118,91 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
               </button>
             </div>
           </div>
+     {!showDetails? ( <div className="space-y-5">
+           {program.map((c) => {
+          const isSelected = c.id === selectedProgramId;
 
-          <div className="space-y-3">
-            {clientProgram.program.map((program, programIndex) => {
-              return (
-                <div
-                  key={programIndex}
-                  className="rounded-2xl border border-slate-200 bg-white p-5"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold text-slate-900">{program.day}</p>
-                    <span className="rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
-                      {program.exercises.length} exercises
+          return (
+            <div
+              key={c.id}
+              onClick={() => programList(c.id)}
+              className={`cursor-pointer rounded-2xl border p-5 shadow-sm transition ${
+                isSelected
+                  ? "border-teal-300 bg-teal-50"
+                  : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+              }`}
+            >
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                {/* Left */}
+                <div className="min-w-0 space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-sm font-semibold tracking-wide text-slate-900">
+                      CHECK-IN
+                    </p>
+
+                    <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+                      {c.date}
                     </span>
                   </div>
 
-                  <div className="mt-4 space-y-2">
-                    {program.exercises.map((exercise, exercisesIndex) => {
-                      const exerciseName =
-                        typeof exercise === "string" ? exercise : exercise.name;
-                      const sets = typeof exercise === "object" ? exercise.sets : undefined;
-                      const reps = typeof exercise === "object" ? exercise.reps : undefined;
-
-                      return (
-                        <div
-                          key={exercisesIndex}
-                          className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-medium text-slate-800">{exerciseName}</p>
-                            <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-                              <span className="rounded-lg bg-white px-2 py-1 ring-1 ring-slate-200">
-                                {sets ?? "—"} sets
-                              </span>
-                              <span className="rounded-lg bg-white px-2 py-1 ring-1 ring-slate-200">
-                                {reps ?? "—"} reps
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <p className="text-sm text-slate-600">
+                    Goal: {" "}
+                    <span className="text-slate-300">|</span>{" "}
+                    
+                  </p>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
+
+                {/* Right */}
+                <div className="flex flex-wrap items-center gap-2 md:justify-end">
+                  {/* Status badge only */}
+                  <span className="inline-flex items-center rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+                    On Track
+                  </span>
+
+                  {/* Actions */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                       openProgramDetails(c.id)
+                     
+                    }}
+                    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                  >
+                    View Details
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeProgram(c.id)
+                   
+                    }}
+                    className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+       </div>
+      ):( 
+      <Outlet context={outletContext}/>
+    )}
+
+
+       
+       
     </div>
 
 

@@ -12,6 +12,7 @@ import AddClient from "./components/modal/AddClient";
 import AddCheckin from "./components/modal/AddCheckin";
 import AddMealplan from "./components/modal/AddMealplan";
 import MealplanListContent from "./components/workspace/MealplanListContent";
+import ProgramListContent from "./components/workspace/programListContent";
 
 
 
@@ -31,7 +32,11 @@ function App() {
              <Route path=":checkinId" element={null} />
              <Route path=":checkinId/details" element={<CheckinListContent />} />
           </Route>
-          <Route path="program" element={<ProgramPanel />} />
+          <Route path="programs" element={<ProgramPanel />} >
+             <Route index element={null} />
+             <Route path=":programId" element={null} />
+             <Route path=":mealplanId/programdetails" element={<ProgramListContent/>} />
+          </Route>
           <Route path="meal-plan" element={<MealPlanPanel />} >
              <Route index element={null} />
              <Route path=":mealplanId" element={null} />

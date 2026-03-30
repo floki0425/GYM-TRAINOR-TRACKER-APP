@@ -7,3 +7,9 @@ export async function getProgram(){
 export async function getProgramId(clientId) {
   return http(`/programs?clientId=${clientId}`);
 }
+
+export async function deleteProgram(id) {
+  return http(`/programs?${id}`,{
+    method:"DELETE"
+  });
+}

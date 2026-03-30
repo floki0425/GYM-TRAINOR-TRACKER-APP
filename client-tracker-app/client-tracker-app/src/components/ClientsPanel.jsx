@@ -121,12 +121,12 @@ const ClientsPanel = ({ clients, onSelectClient, selectedClientId, loading,setCl
                   </span>
                 </div>
 
-                <p className="mt-1 text-xs text-slate-600">
+                <div className="mt-1 text-xs text-slate-600">
                   {client.goalType} <p> Started since<span className="ml-2 rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-s font-semibold text-indigo-700 ">
                         {client.startDate}         
                       </span> </p>
                    
-                </p>
+                </div>
               </div>
             </div>
           </button>

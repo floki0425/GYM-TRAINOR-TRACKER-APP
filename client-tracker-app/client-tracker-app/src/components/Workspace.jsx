@@ -91,7 +91,7 @@ const Workspace = () => {
           </NavLink>
 
           <NavLink
-            to={`/clients/${selectedClientId}/workspace/program`}
+            to={`/clients/${selectedClientId}/workspace/programs`}
             className={({ isActive }) =>
               `rounded-xl px-3 py-2 text-xs font-semibold transition ${
                 isActive
