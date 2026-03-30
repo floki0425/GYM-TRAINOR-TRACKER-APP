@@ -7,12 +7,12 @@ import CheckinsPanel from "./components/workspace/CheckinsPanel";
 import ProgramPanel from "./components/workspace/ProgramPanel";
 import MealPlanPanel from "./components/workspace/MealPlanPanel";
 import NotesPanel from "./components/workspace/NotesPanel";
-import CheckinListContent from "./components/workspace/CheckinListContent";
+import CheckinListContent from "./components/panel details/CheckinListContent";
 import AddClient from "./components/modal/AddClient";
 import AddCheckin from "./components/modal/AddCheckin";
 import AddMealplan from "./components/modal/AddMealplan";
-import MealplanListContent from "./components/workspace/MealplanListContent";
-import ProgramListContent from "./components/workspace/programListContent";
+import MealplanListContent from "./components/panel details/MealplanListContent";
+import ProgramListContent from "./components/panel details/ProgramListContent";
 
 
 
