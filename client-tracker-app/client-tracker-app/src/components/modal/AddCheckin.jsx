@@ -7,6 +7,7 @@ const AddCheckin = () => {
 const [error,setError] = useState({})
 const [form,setForm] = useState({
         date:"2026-02-24", 
+        goal:"",
         weightKg:"", 
         waistIn:"", 
         bodyFatPct:"", 
@@ -15,11 +16,9 @@ const [form,setForm] = useState({
         sleepAvg:"", 
         caloriesTarget:"", 
         adherence:"", 
-        energy:"", 
-        stress:"", 
-        hunger:"", 
-        clientNotes:"", 
-        trainerNotes:""
+        hunger:"",
+        trainerNotes:"",
+        
 
 })
 const { closeDrawer,loadCheckin,selectedClientId} = useOutletContext()
@@ -46,7 +45,17 @@ const { closeDrawer,loadCheckin,selectedClientId} = useOutletContext()
     const payload = {
       clientId:selectedClientId,
       date: form.date,
-      weightKg: Number(form.weightKg)
+      goal:String(form.goal),
+      weightKg: Number(form.weightKg),
+      waistIn:Number(form.waistIn), 
+      bodyFatPct:form.bodyFatPct, 
+      trainingDays:Number(form.trainingDays), 
+      stepsAvg:Number(form.stepsAvg), 
+      sleepAvg:Number(form.sleepAvg), 
+      caloriesTarget:Number(form.caloriesTarget), 
+      adherence:Number(form.adherence), 
+      hunger:Number(form.hunger),
+      trainerNotes:String(form.trainerNotes)
     };
 
     try {
@@ -130,6 +139,13 @@ const updateField =  (name,value) => {
               placeholder="Weight (kg)"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
+              <input
+              value={form.caloriesTarget}
+              onChange={(e) => updateField("caloriesTarget", e.target.value)}
+              type="number"
+              placeholder="Calories Target"
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
+            />
 
             <input
               value={form.date}
@@ -146,28 +162,54 @@ const updateField =  (name,value) => {
 
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <input
+              value={form.waistIn}
+              onChange={(e) => updateField("waistIn", e.target.value)}
               type="number"
               placeholder="Waist (in)"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
 
             <input
+              value={form.bodyFatPct}
+              onChange={(e) => updateField("bodyFatPct", e.target.value)}
               type="number"
-              placeholder="Training Days (0–7)"
+              placeholder="Body Fat %"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
 
+            <select
+              value={form.trainingDays}
+              onChange={(e) => updateField("trainingDays", e.target.value)}
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200"
+            >
+              <option value="0-7">Training Days (0–7)</option>
+              <option value="0">0 days</option>
+              <option value="1">1 day</option>
+              <option value="2">2 days</option>
+              <option value="3">3 days</option>
+              <option value="4">4 days</option>
+              <option value="5">5 days</option>
+              <option value="6">6 days</option>
+              <option value="7">7 days</option>
+            </select>
+
             <input
+              value={form.stepsAvg}
+              onChange={(e) => updateField("stepsAvg", e.target.value)}
               type="number"
               placeholder="Steps Avg"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
 
             <input
+              value={form.sleepAvg}
+              onChange={(e) => updateField("sleepAvg", e.target.value)}
               type="number"
               placeholder="Sleep Avg (hrs)"
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
             />
+
+          
           </div>
         </div>
 
@@ -176,12 +218,30 @@ const updateField =  (name,value) => {
           <h3 className="text-sm font-semibold text-slate-900">Feedback</h3>
 
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <select className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200">
-              <option>Plan Adherence (1–5)</option>
+            <select
+              value={form.adherence}
+              onChange={(e) => updateField("adherence", e.target.value)}
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200"
+            >
+              <option value="">Plan Adherence (1–5)</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </select>
 
-            <select className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200">
-              <option>Energy (1–5)</option>
+            <select
+              value={form.hunger}
+              onChange={(e) => updateField("hunger", e.target.value)}
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-200"
+            >
+              <option value="">Hunger (1–5)</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </select>
           </div>
         </div>
@@ -192,6 +252,8 @@ const updateField =  (name,value) => {
 
           <textarea
             rows={4}
+            value={form.trainerNotes}
+            onChange={(e) => updateField("trainerNotes", e.target.value)}
             placeholder="Coach notes..."
             className="mt-3 w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
           />

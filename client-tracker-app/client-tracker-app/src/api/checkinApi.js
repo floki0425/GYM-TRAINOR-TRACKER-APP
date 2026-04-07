@@ -15,7 +15,12 @@ export async function createCheckin(payload) {
   });
 }
 
-
+export async function editCheckinApi(payload) {
+  return http(`/checkins/${payload.id}`,{
+    method: "PUT",
+    body: JSON.stringify(payload)
+  });
+}
 
 
 export async function deleteCheckin(id){

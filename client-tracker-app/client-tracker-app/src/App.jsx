@@ -32,7 +32,9 @@ function App() {
              <Route index element={null} />
              <Route path=":checkinId" element={null} />
              <Route path=":checkinId/editcheckin" element={<EditCheckin />} />
-             <Route path=":checkinId/details" element={<CheckinListContent />} />
+             <Route path=":checkinId/details" element={<CheckinListContent />}/> 
+             
+           
              
           </Route>
           <Route path="programs" element={<ProgramPanel />} >

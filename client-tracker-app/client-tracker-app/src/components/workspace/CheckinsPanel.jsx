@@ -12,14 +12,17 @@ const navigate = useNavigate();
 const location = useLocation();
 const ignoreRef = useRef(false);
 const {selectedClientId,selectedClient,closeDrawer} = useOutletContext();
-   
-const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
-const showDetails = location.pathname.endsWith("/details")
-const showEditDetails = location.pathname.endsWith("/editcheckin")
+const selectedCheckin = checkin.find((f)=>String(f.id) === String(selectedCheckinId));
+const checkInClient = checkin.find((f)=>f.clientId === selectedClientId);
+const showDetails = location.pathname.endsWith("/details");
+const showEditDetails = location.pathname.endsWith("/editcheckin");
+
+
 
 
 const checkinList = (id)=>{
   navigate(`/clients/${selectedClientId}/workspace/checkins/${id}`)
+
 }
 
 const openDetails = (id)=>{
@@ -29,6 +32,8 @@ const openDetails = (id)=>{
 const editCheckin = (id)=>{
    navigate(`/clients/${selectedClientId}/workspace/checkins/${id}/editcheckin`)
 }
+
+
 
 
 const removeCheckin = async (id)=>{
@@ -109,7 +114,7 @@ if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 
     </div>
 
  const outletContext = {
-  selectedClientId,selectedClient,closeDrawer
+  selectedClientId,selectedClient,closeDrawer,checkin,selectedCheckin,loadCheckin,navigate
 }
 
   return (
@@ -132,6 +137,8 @@ if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 
               >
                 + Add Check-in
               </button>
+
+              
             </div>
           </div>
 
