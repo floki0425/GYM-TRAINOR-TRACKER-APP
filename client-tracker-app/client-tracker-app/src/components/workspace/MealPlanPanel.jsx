@@ -23,8 +23,8 @@ const checkinList = (id)=>{
 const openDetails = (id)=>{
   navigate(`/clients/${selectedClientId}/workspace/meal-plan/${id}/mealdetails`)
 }
-  
-
+   
+ 
   
   
 

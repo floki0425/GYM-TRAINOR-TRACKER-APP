@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { deleteCheckin, getCheckinByClientId } from '../../api/checkinApi'
+import { deleteCheckin,  getCheckinByClientId } from '../../api/checkinApi'
 import { Outlet, useLocation, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 
 const CheckinsPanel = () => {
@@ -15,6 +15,8 @@ const {selectedClientId,selectedClient,closeDrawer} = useOutletContext();
    
 const checkInClient = checkin.find((f)=>f.clientId === selectedClientId)
 const showDetails = location.pathname.endsWith("/details")
+const showEditDetails = location.pathname.endsWith("/editcheckin")
+
 
 const checkinList = (id)=>{
   navigate(`/clients/${selectedClientId}/workspace/checkins/${id}`)
@@ -24,6 +26,9 @@ const openDetails = (id)=>{
   navigate(`/clients/${selectedClientId}/workspace/checkins/${id}/details`)
 }
 
+const editCheckin = (id)=>{
+   navigate(`/clients/${selectedClientId}/workspace/checkins/${id}/editcheckin`)
+}
 
 
 const removeCheckin = async (id)=>{
@@ -109,7 +114,7 @@ if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 
 
   return (
     <div className="min-h-screen p-6">
-  {!showDetails ? (
+  {!showDetails && !showEditDetails? (
     <div className="mx-auto max-w-5xl space-y-6">
       {/* Header */}
       <div className="rounded-2xl  bg-white p-5 ">
@@ -208,6 +213,7 @@ if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
+                      editCheckin(c.id);
                     }}
                     className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
                   >

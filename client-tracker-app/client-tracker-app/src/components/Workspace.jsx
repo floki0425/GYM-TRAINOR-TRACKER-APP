@@ -3,11 +3,11 @@ import AddMealplan from "./modal/AddMealplan";
 
 const Workspace = () => {
 
-  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer,addMealplan} = useOutletContext()
+  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer,addMealplan,editCheckin} = useOutletContext()
 
 
  const outletContext={
-  selectedClient,selectedClientId,loading,closeDrawer,addMealplan
+  selectedClient,selectedClientId,loading,closeDrawer,addMealplan,editCheckin
  }
 
  if(!selectedClient) return   <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">

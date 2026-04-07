@@ -30,13 +30,19 @@
       "weightKg": 12
     },
     {
-      "id": "097d",
-      "clientId": "1",
-      "date": "2026-02-04",
-      "weightKg": 12
+      "id": "097d"
     },
     {
-      "id": "18ef",
+      "id": "18ef"
+    },
+    {
+      "id": "3938",
+      "clientId": "1",
+      "date": "2026-02-24",
+      "weightKg": 1212
+    },
+    {
+      "id": "2681",
       "clientId": "1",
       "date": "2026-02-24",
       "weightKg": 12

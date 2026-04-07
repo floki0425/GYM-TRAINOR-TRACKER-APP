@@ -7,12 +7,13 @@ import CheckinsPanel from "./components/workspace/CheckinsPanel";
 import ProgramPanel from "./components/workspace/ProgramPanel";
 import MealPlanPanel from "./components/workspace/MealPlanPanel";
 import NotesPanel from "./components/workspace/NotesPanel";
-import CheckinListContent from "./components/panel details/CheckinListContent";
+import CheckinListContent from "./components/panelDetails/CheckinListContent";
 import AddClient from "./components/modal/AddClient";
 import AddCheckin from "./components/modal/AddCheckin";
 import AddMealplan from "./components/modal/AddMealplan";
-import MealplanListContent from "./components/panel details/MealplanListContent";
-import ProgramListContent from "./components/panel details/ProgramListContent";
+import MealplanListContent from "./components/panelDetails/MealplanListContent";
+import ProgramListContent from "./components/panelDetails/ProgramListContent";
+import EditCheckin from "./components/modal/EditCheckin";
 
 
 
@@ -30,7 +31,9 @@ function App() {
           <Route path="checkins" element={<CheckinsPanel />}>
              <Route index element={null} />
              <Route path=":checkinId" element={null} />
+             <Route path=":checkinId/editcheckin" element={<EditCheckin />} />
              <Route path=":checkinId/details" element={<CheckinListContent />} />
+             
           </Route>
           <Route path="programs" element={<ProgramPanel />} >
              <Route index element={null} />
@@ -46,6 +49,7 @@ function App() {
         </Route>
 
         {/* MODAL (sibling of workspace) */}
+        
         <Route path="addclient" element={<AddClient />} />
         <Route path="add" element={<AddCheckin />} />
         <Route path="addmealplan" element={<AddMealplan />} />

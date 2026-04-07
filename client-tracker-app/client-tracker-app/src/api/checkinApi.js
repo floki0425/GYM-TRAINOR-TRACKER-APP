@@ -15,6 +15,9 @@ export async function createCheckin(payload) {
   });
 }
 
+
+
+
 export async function deleteCheckin(id){
   return http(`/checkins/${id}`,{
     method: "DELETE",
