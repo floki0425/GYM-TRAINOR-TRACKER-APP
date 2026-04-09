@@ -160,61 +160,81 @@
   ],
   "programs": [
     {
-      "id": "1123",
-      "clientId": "1",
-      "program": [
+  "id": "program-1123",
+  "clientId": "1",
+  "title": "3-Day Training Program",
+  "days": [
+    {
+      "id": "day-1",
+      "day": "Chest day",
+      "tag": "upper", 
+      "exercises": [
         {
-          "day": "DAY 1 - UPPER",
-          "exercises": [
-            "CHEST",
-            "SHOULDER",
-            "BICEP"
-          ]
+          "id": "ex-1",
+          "name": "Chest Press",
+          "sets": 3,
+          "reps": "10-12"
         },
         {
-          "day": "DAY 2 - LOWER",
-          "exercises": [
-            "RDL",
-            "SQUAT",
-            "LEGPRESS"
-          ]
+          "id": "ex-2",
+          "name": "Shoulder Press",
+          "sets": 3,
+          "reps": "10-12"
         },
         {
-          "day": "DAY 3 - CARDIO",
-          "exercises": [
-            "30 MINS WALK",
-            "JUMPING JACKS"
-          ]
+          "id": "ex-3",
+          "name": "Bicep Curl",
+          "sets": 3,
+          "reps": "12-15"
         }
       ]
     },
     {
-      "id": "1234",
-      "clientId": 2,
-      "program": [
+      "id": "day-2",
+      "day": "Leg day",
+      "tag": "lower",
+      "exercises": [
         {
-          "name": "DAY 1",
-          "exercises": [
-            "Oatmeal",
-            "Eggs"
-          ]
+          "id": "ex-4",
+          "name": "Romanian Deadlift",
+          "sets": 4,
+          "reps": "8-10"
         },
         {
-          "name": "DAY 2",
-          "exercises": [
-            "Chicken Breast",
-            "Rice"
-          ]
+          "id": "ex-5",
+          "name": "Squat",
+          "sets": 4,
+          "reps": "8-10"
         },
         {
-          "name": "DAY 3",
-          "exercises": [
-            "Fish",
-            "Vegetables"
-          ]
+          "id": "ex-6",
+          "name": "Leg Press",
+          "sets": 3,
+          "reps": "10-12"
+        }
+      ]
+    },
+    {
+      "id": "day-3",
+      "day": "DAY 3 - CARDIO",
+      "tag": "CARDIO",
+      "exercises": [
+        {
+          "id": "ex-7",
+          "name": "Walking",
+          "sets": 1,
+          "reps": "30 min"
+        },
+        {
+          "id": "ex-8",
+          "name": "Jumping Jacks",
+          "sets": 3,
+          "reps": "20 reps"
         }
       ]
     }
+  ]
+}
   ],
   "mealplan": [
     {

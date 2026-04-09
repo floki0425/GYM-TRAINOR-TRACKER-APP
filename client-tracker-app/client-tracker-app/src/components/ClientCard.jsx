@@ -33,6 +33,9 @@ const ClientCard = () => {
  const addMealplan = ()=>{
    navigate("addmealplan")
  }
+  const addProgram = ()=>{
+    navigate(`addprogram`)
+  }
 
 
  const closeDrawer = ()=>{
@@ -110,6 +113,7 @@ const ClientCard = () => {
     closeDrawer,
     loadClients,
    addMealplan,
+   addProgram
 
 
 

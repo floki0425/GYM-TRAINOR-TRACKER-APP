@@ -1,13 +1,14 @@
 import { NavLink, Outlet, useOutletContext } from "react-router-dom";
-import AddMealplan from "./modal/AddMealplan";
+
+
 
 const Workspace = () => {
 
-  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer,addMealplan,editCheckin} = useOutletContext()
+  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer,addMealplan,editCheckin,addProgram} = useOutletContext()
 
 
  const outletContext={
-  selectedClient,selectedClientId,loading,closeDrawer,addMealplan,editCheckin
+  selectedClient,selectedClientId,loading,closeDrawer,addMealplan,editCheckin,addProgram
  }
 
  if(!selectedClient) return   <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">

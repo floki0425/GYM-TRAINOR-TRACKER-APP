@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { deleteProgram, getProgramId } from '../../api/programApi';
-import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 const ProgramPanel = () => {
   const [program,setProgram] = useState([])
@@ -10,8 +10,8 @@ const ProgramPanel = () => {
   const selectedProgramId = programId? programId : null;
   const navigate = useNavigate();
   const ignoreRef = useRef(false);
-  const {selectedClientId} = useOutletContext()
-
+  const {selectedClientId,addProgram} = useOutletContext()
+  const location = useLocation()
   const showDetails = location.pathname.endsWith("/programdetails")
 
   const programList = (id)=>{
@@ -21,6 +21,7 @@ const ProgramPanel = () => {
   const openProgramDetails = (id)=>{
     navigate(`/clients/${selectedClientId}/workspace/programs/${id}/programdetails`);
   }
+
 
 
   const removeProgram = async(id)=>{
@@ -35,6 +36,10 @@ const ProgramPanel = () => {
       navigate(`/clients/${selectedClientId}/workspace/program`);
     }
   } 
+
+
+
+
 
 const clientProgram = program.find((p)=> p.clientId === selectedClientId)
 
@@ -95,29 +100,39 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
 
 
   const outletContext = {
-    clientProgram
+    clientProgram,navigate
   }
 
   return (
     
 
  
-    <div className="tab-panel rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-         <div className="flex items-center justify-between gap-4 mb-4">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">Program</h3>
-              <p className="mt-1 text-sm text-slate-600">Weekly split overvieW</p>
-            </div>
+    <div className=" p-4 ">
+        {!showDetails && (
+           <div className="flex items-center justify-between gap-4 mb-4 p-6">
+            
+      <div className="mb-4 flex items-center justify-between gap-4 p-2">
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900">Program</h3>
+          <p className="mt-1 text-sm text-slate-600">Weekly split overview</p>
+        </div>
 
-            <div className="flex gap-2">
-              <button className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800">
-                Add Program
-              </button>
-              <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-                Edit
-              </button>
-            </div>
-          </div>
+        <div className="flex gap-2">
+          <button
+            onClick={addProgram}
+            className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800"
+          >
+            Add Program
+          </button>
+          <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+            Edit
+          </button>
+        </div>
+      </div>
+  
+          </div> 
+         )}
+         
      {!showDetails? ( <div className="space-y-5">
            {program.map((c) => {
           const isSelected = c.id === selectedProgramId;

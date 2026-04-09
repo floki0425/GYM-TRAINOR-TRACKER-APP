@@ -14,6 +14,7 @@ import AddMealplan from "./components/modal/AddMealplan";
 import MealplanListContent from "./components/panelDetails/MealplanListContent";
 import ProgramListContent from "./components/panelDetails/ProgramListContent";
 import EditCheckin from "./components/modal/EditCheckin";
+import AddProgram from "./components/modal/AddProgram";
 
 
 
@@ -51,7 +52,7 @@ function App() {
         </Route>
 
         {/* MODAL (sibling of workspace) */}
-        
+        <Route path="addprogram" element={<AddProgram />} />
         <Route path="addclient" element={<AddClient />} />
         <Route path="add" element={<AddCheckin />} />
         <Route path="addmealplan" element={<AddMealplan />} />
