@@ -100,7 +100,7 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
 
 
   const outletContext = {
-    clientProgram,navigate
+    clientProgram,navigate,loadingProgram
   }
 
   return (

@@ -3,12 +3,12 @@ import { useOutletContext } from 'react-router-dom';
 import { createProgram } from '../../api/programApi';
 
 const AddProgram = () => {
-  const {closeDrawer,selectedClientId,loadMealplan,} = useOutletContext()
+  const {closeDrawer,selectedClientId,loadingProgram,} = useOutletContext()
 
   const [error,setError] = useState(false);
   const [form, setForm] = useState({
    title: "",
-   clientId: "",
+   clientId: selectedClientId,
    days: [
     {
       id: "day-1",
@@ -77,11 +77,8 @@ const addExercise = (dayId) => {
   const saveProgram = async()=>{
     const nextErrors = {};
       
-    if(!form.goal) nextErrors.goal = "goal is required";
-    if(!form.calories) nextErrors.calories = "Calories is required";
-    if(!form.protein) nextErrors.protein = "Protein is required";
-    if(!form.carbs) nextErrors.carbs = "Carbs is required";
-    if(!form.fat) nextErrors.fat = "Fat is required";
+    if(!form.title) nextErrors.title = "Title is required";
+   
    
   
     if(Object.keys(nextErrors).length > 0){
@@ -89,14 +86,21 @@ const addExercise = (dayId) => {
       return;
     }
   
-    const payload = {
-      clientId:selectedClientId,
-      goal:form.goal,
-      calories:form.calories,
-      protein:form.protein,
-      carbs:form.carbs,
-      fat:form.fat,
-    }
+   const payload = {
+    title: form.title,
+    clientId: form.clientId,
+    days: form.days.map((day) => ({
+      id: day.id,
+      day: day.day,
+      tag: day.tag,
+      exercises: day.exercises.map((exercise) => ({
+        id: exercise.id,
+        name: exercise.name,
+        sets: exercise.sets,
+        reps: exercise.reps,
+    })),
+  })),
+};
   
    
     try {
@@ -104,20 +108,57 @@ const addExercise = (dayId) => {
       
       setError({});
       closeDrawer();
-      await loadMealplan();
+      await loadingProgram();
   
       
   
     } catch (error) {
-      setError({_form: error?.message?? "Failed to save mealplan"})
+      setError({_form: error?.message?? "Failed to save Program"})
     };
   
   };
   
-    const updateField = (mealplan,value)=>{
+    const updateField = (program,value)=>{
       setForm(prevform => ({
         ...prevform,
-        [mealplan]:  value
+        [program]:  value
+      }))
+    }
+
+     const updateDay= (dayId , field , value)=>{
+      setForm(prevform => ({
+        ...prevform,
+        days: prevform.days.map((day)=>{
+          if (day.id === dayId) return {
+            ...day,
+            [field] : value 
+          }
+
+          return day;
+          
+          
+        })
+        
+      }))
+    }
+
+    const updateExercise = (dayId,exerciseId,field,value)=>{
+      setForm(prevForm =>({
+        ...prevForm,
+        days: prevForm.days.map((day)=>{
+          if(day.id !== dayId) return day
+          
+          return{
+            ...day,
+            exercises: day.exercises.map((exercise)=>{  
+              if(exercise.id === exerciseId) return {
+                ...exercise,
+                [field] : value
+              }
+              return exercise
+            })
+          }
+        })
       }))
     }
 
@@ -154,13 +195,22 @@ const addExercise = (dayId) => {
         {/* Program Info */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h3 className="text-sm font-semibold text-slate-900">Program Info</h3>
-
+             <div className="text-right">
+              {error.title && (
+                <p className="text-sm font-semibold text-red-500">{error.title}</p>
+              )}
+              
+            </div>
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-2 block text-xs font-medium text-slate-500">
                 Program Title
               </label>
               <input
+                value={form.title}
+                onChange={(e) => {
+                  updateField("title", e.target.value);
+                }}
                 type="text"
                 placeholder="3-Day Training Program"
                 className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
@@ -196,6 +246,10 @@ const addExercise = (dayId) => {
                     Day Name
                   </label>
                   <input
+                    value={day.day}
+                    onChange={(e) => {
+                        updateDay(day.id,"day" , e.target.value);
+                      }}
                     type="text"
                     placeholder="Day name"
                     className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
@@ -206,7 +260,12 @@ const addExercise = (dayId) => {
                   <label className="mb-2 block text-xs font-medium text-slate-500">
                     Tag
                   </label>
-                  <select className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900">
+                  <select 
+                  value={day.tag}
+                  onChange={(e) => {
+                        updateDay(day.id,"tag", e.target.value);
+                      }}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900">
                     <option value="">Select tag</option>
                     <option>upper</option>
                     <option>lower</option>
@@ -224,16 +283,28 @@ const addExercise = (dayId) => {
                   >
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
                       <input
+                       value={exercise.name}
+                       onChange={(e) => {
+                          updateExercise(day.id,exercise.id,"name", e.target.value);
+                        }}
                         type="text"
                         placeholder="Exercise name"
                         className="sm:col-span-6 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
                       />
                       <input
+                        value={exercise.sets}
+                        onChange={(e) => {
+                          updateExercise(day.id,exercise.id,"sets", e.target.value);
+                        }}
                         type="number"
                         placeholder="Sets"
                         className="sm:col-span-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
                       />
                       <input
+                        value={exercise.reps}
+                        onChange={(e) => {
+                          updateExercise(day.id,exercise.id,"reps", e.target.value);
+                        }}
                         type="text"
                         placeholder="Reps"
                         className="sm:col-span-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
@@ -266,7 +337,11 @@ const addExercise = (dayId) => {
             Cancel
           </button>
 
-          <button className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800">
+          <button 
+          onClick={()=>{
+            saveProgram();
+          }}
+          className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800">
             Save Program
           </button>
         </div>
