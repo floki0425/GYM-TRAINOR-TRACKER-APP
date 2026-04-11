@@ -41,7 +41,7 @@ function App() {
           <Route path="programs" element={<ProgramPanel />} >
              <Route index element={null} />
              <Route path=":programId" element={null} />
-             <Route path=":mealplanId/programdetails" element={<ProgramListContent/>} />
+             <Route path=":programId/programdetails" element={<ProgramListContent/>} />
           </Route>
           <Route path="meal-plan" element={<MealPlanPanel />} >
              <Route index element={null} />

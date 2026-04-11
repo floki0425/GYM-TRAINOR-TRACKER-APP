@@ -13,6 +13,14 @@ const ProgramPanel = () => {
   const {selectedClientId,addProgram} = useOutletContext()
   const location = useLocation()
   const showDetails = location.pathname.endsWith("/programdetails")
+  const clientPrograms = program.filter((p)=> p.clientId === selectedClientId)
+   const selectedProgram = 
+     clientPrograms.find((p) => p.id === selectedProgramId)
+
+
+
+
+
 
   const programList = (id)=>{
     navigate(`/clients/${selectedClientId}/workspace/programs/${id}`)
@@ -38,10 +46,7 @@ const ProgramPanel = () => {
   } 
 
 
-
-
-
-const clientProgram = program.find((p)=> p.clientId === selectedClientId)
+console.log(program)
 
 
 
@@ -75,7 +80,7 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
  
    if(loading) return <div>loading...</div>
    if(error) return <div>Error</div>
-   if(!clientProgram)
+   if(!clientPrograms)
      return 
         <div className="space-y-5">
           <div className="flex items-start justify-between gap-4">
@@ -100,7 +105,7 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
 
 
   const outletContext = {
-    clientProgram,navigate,loadingProgram
+    clientPrograms,navigate,loadingProgram,selectedProgram
   }
 
   return (
@@ -152,17 +157,17 @@ const clientProgram = program.find((p)=> p.clientId === selectedClientId)
                 <div className="min-w-0 space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm font-semibold tracking-wide text-slate-900">
-                      CHECK-IN
+                      CHECK-IN 
                     </p>
 
                     <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
-                      {c.date}
+                    {c.date} 
                     </span>
                   </div>
 
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-slate-400">
                     Goal: {" "}
-                    <span className="text-slate-300">|</span>{" "}
+                    <span className="text-slate-600">{c.title}</span>
                     
                   </p>
                 </div>

@@ -20,6 +20,13 @@
       "goalType": "RECOMP",
       "status": "PAUSED",
       "startDate": "2025-12-10"
+    },
+    {
+      "id": "181f",
+      "name": "asdsa",
+      "goalType": "LEAN BULK",
+      "status": "PAUSED",
+      "startDate": "2026-04-08"
     }
   ],
   "checkins": [
@@ -160,81 +167,194 @@
   ],
   "programs": [
     {
-  "id": "program-1123",
-  "clientId": "1",
-  "title": "3-Day Training Program",
-  "days": [
-    {
-      "id": "day-1",
-      "day": "Chest day",
-      "tag": "upper", 
-      "exercises": [
+      "id": "fa22",
+      "title": "fsdffsdf",
+      "clientId": "1",
+      "days": [
         {
-          "id": "ex-1",
-          "name": "Chest Press",
-          "sets": 3,
-          "reps": "10-12"
+          "id": "day-1",
+          "day": "",
+          "tag": "",
+          "exercises": [
+            {
+              "id": "ex-1",
+              "name": "asdsadsasdfsdfffsdfasdsa",
+              "sets": "1212",
+              "reps": "1212"
+            }
+          ]
         },
         {
-          "id": "ex-2",
-          "name": "Shoulder Press",
-          "sets": 3,
-          "reps": "10-12"
+          "id": "52368a9e-f2e5-459e-b493-3441b590c6b3",
+          "day": "CHEST DAY",
+          "tag": "upper",
+          "exercises": [
+            {
+              "id": "4a70a964-e8ac-4dee-b79d-4f62a67be67e",
+              "name": "sdasdsad",
+              "sets": "1212",
+              "reps": "1212"
+            }
+          ]
         },
         {
-          "id": "ex-3",
-          "name": "Bicep Curl",
-          "sets": 3,
-          "reps": "12-15"
+          "id": "e5bd18e5-fd66-4d2e-a82b-5c380fd84f6c",
+          "day": "LEGDAY",
+          "tag": "lower",
+          "exercises": [
+            {
+              "id": "dc7d5038-0bac-4bef-9e65-391021138d89",
+              "name": "asdsadasd",
+              "sets": "",
+              "reps": "12"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "day-2",
-      "day": "Leg day",
-      "tag": "lower",
-      "exercises": [
+      "id": "107f",
+      "title": "1212",
+      "clientId": "1",
+      "days": [
         {
-          "id": "ex-4",
-          "name": "Romanian Deadlift",
-          "sets": 4,
-          "reps": "8-10"
-        },
-        {
-          "id": "ex-5",
-          "name": "Squat",
-          "sets": 4,
-          "reps": "8-10"
-        },
-        {
-          "id": "ex-6",
-          "name": "Leg Press",
-          "sets": 3,
-          "reps": "10-12"
+          "id": "day-1",
+          "day": "",
+          "tag": "",
+          "exercises": [
+            {
+              "id": "ex-1",
+              "name": "asdsadsa",
+              "sets": "21",
+              "reps": "12"
+            },
+            {
+              "id": "d3798303-ff3d-4ad5-ad28-1fb28cb19d7b",
+              "name": "12",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "day-3",
-      "day": "DAY 3 - CARDIO",
-      "tag": "CARDIO",
-      "exercises": [
+      "id": "4ffd",
+      "title": "aswaas",
+      "clientId": "1",
+      "days": [
         {
-          "id": "ex-7",
-          "name": "Walking",
-          "sets": 1,
-          "reps": "30 min"
+          "id": "",
+          "day": "asdsad",
+          "tag": "",
+          "exercises": [
+            {
+              "id": "",
+              "name": "asdsad",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c362",
+      "title": "4-DAY Training Program",
+      "clientId": "1",
+      "days": [
+        {
+          "id": "",
+          "day": "CHEST / BACK DAY",
+          "tag": "upper",
+          "exercises": [
+            {
+              "id": "",
+              "name": "CHEST PRESS",
+              "sets": "4",
+              "reps": "12"
+            },
+            {
+              "id": "3391fd05-f02a-4100-8088-7125a01376b6",
+              "name": "DEADLIFT",
+              "sets": "4",
+              "reps": "12"
+            },
+            {
+              "id": "fbfb83e7-7313-413b-912a-41d5a0376139",
+              "name": "PULL UPS ",
+              "sets": "4",
+              "reps": "12"
+            }
+          ]
         },
         {
-          "id": "ex-8",
-          "name": "Jumping Jacks",
-          "sets": 3,
-          "reps": "20 reps"
+          "id": "3866e5ed-a0c4-4cfa-9b80-6e9f562602a9",
+          "day": "LEG AND GLUTES",
+          "tag": "lower",
+          "exercises": [
+            {
+              "id": "3f0151bf-746f-4932-91a4-0cb64c968343",
+              "name": "LEG PRESS",
+              "sets": "4",
+              "reps": "12"
+            },
+            {
+              "id": "5c2708c3-eb3d-4fa7-b04b-cff89675e43c",
+              "name": "RDL",
+              "sets": "4",
+              "reps": "12"
+            },
+            {
+              "id": "3b23e24c-b9fc-4fc3-b9dd-68a526333572",
+              "name": "SLDL",
+              "sets": "4",
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "id": "6bb2dae5-9acc-4b4b-adba-979ef9c4a013",
+          "day": "ACTIVE REST",
+          "tag": "cardio",
+          "exercises": [
+            {
+              "id": "9b0b60c2-6bdf-470a-b9be-24a4073e2bda",
+              "name": "JUMPING JACS",
+              "sets": "1",
+              "reps": "50"
+            },
+            {
+              "id": "2d3af0f3-adf1-4251-81d2-012580377a37",
+              "name": "WALK",
+              "sets": "",
+              "reps": "10000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "81e0",
+      "title": "asdsadsad",
+      "clientId": "1",
+      "date": "2026-04-15",
+      "days": [
+        {
+          "id": "",
+          "day": "",
+          "tag": "",
+          "exercises": [
+            {
+              "id": "",
+              "name": "asdsadsa",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
         }
       ]
     }
-  ]
-}
   ],
   "mealplan": [
     {

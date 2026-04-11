@@ -2,11 +2,13 @@ import React from 'react'
 import { useOutletContext } from 'react-router-dom'
 
 const ProgramListContent = () => {
-  const { clientProgram } = useOutletContext()
+  const { selectedProgram} = useOutletContext()
 
-  if (!clientProgram) return null
+  console.log(selectedProgram)
 
-  const days = clientProgram.days ?? []
+  if (!selectedProgram) return null
+
+  const days = selectedProgram.days ?? []
   const totalExercises = days.reduce(
     (sum, day) => sum + (day.exercises?.length ?? 0),
     0
@@ -28,6 +30,7 @@ const getTagStyles = (tag = '') => {
 }
 
 
+
   return (
     <div className=" p-5  ">
        <div>
@@ -35,7 +38,7 @@ const getTagStyles = (tag = '') => {
               Program
             </p>
             <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
-              {clientProgram.title}
+              {selectedProgram.title}
             </h2>
             <p className="mt-2 text-sm text-slate-600">
               Structured weekly split with exercises, sets, and reps.
@@ -45,7 +48,7 @@ const getTagStyles = (tag = '') => {
       <div className="mt-5 grid grid-cols-3 gap-3">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <p className="text-xs font-medium text-slate-500">Days</p>
-          <p className="mt-2 text-lg font-semibold text-slate-900">{clientProgram.days.length}</p>
+          <p className="mt-2 text-lg font-semibold text-slate-900">Days Card</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -55,7 +58,7 @@ const getTagStyles = (tag = '') => {
 
       </div>
 
-      {clientProgram.days.map((program, programIndex) => {
+      {days.map((program, programIndex) => {
         return (
           <div key={programIndex} className="mt-4">
             

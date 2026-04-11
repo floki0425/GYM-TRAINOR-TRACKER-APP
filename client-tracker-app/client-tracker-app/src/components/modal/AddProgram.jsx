@@ -11,12 +11,13 @@ const AddProgram = () => {
    clientId: selectedClientId,
    days: [
     {
-      id: "day-1",
+      id: "",
       day: "",
+      date:"",
       tag: "",
       exercises: [
         {
-          id: "ex-1",
+          id: "",
           name: "",
           sets: "",
           reps: "",
@@ -89,6 +90,7 @@ const addExercise = (dayId) => {
    const payload = {
     title: form.title,
     clientId: form.clientId,
+    date: form.date,
     days: form.days.map((day) => ({
       id: day.id,
       day: day.day,
@@ -117,6 +119,8 @@ const addExercise = (dayId) => {
     };
   
   };
+
+  
   
     const updateField = (program,value)=>{
       setForm(prevform => ({
@@ -214,8 +218,25 @@ const addExercise = (dayId) => {
                 type="text"
                 placeholder="3-Day Training Program"
                 className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
-              />
+              />          
             </div>
+              <div>
+              <label className="mb-2 block text-xs font-medium text-slate-500">
+                Date
+              </label>
+              <input
+                value={form.date}
+                onChange={(e) => {
+                  updateField("date", e.target.value);
+                }}
+                type="date"
+                placeholder="3-Day Training Program"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-200"
+              />          
+            </div>
+
+
+                
 
           
           </div>

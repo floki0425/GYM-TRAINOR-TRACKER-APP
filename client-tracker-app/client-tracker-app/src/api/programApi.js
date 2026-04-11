@@ -17,7 +17,7 @@ export async function deleteProgram(id) {
 
 
 export async function createProgram(payload) {
-  return http("/program",{
+  return http("/programs",{
     method: "POST",
     body: JSON.stringify(payload)
   });
