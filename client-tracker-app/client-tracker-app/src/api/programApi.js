@@ -15,6 +15,12 @@ export async function deleteProgram(id) {
   });
 }
 
+export async function deleteDays(id,  ) {
+  return http(`/programs/${id}/editprogram`,{
+    method:"DELETE"
+  });
+}
+
 
 export async function editProgram(payload) {
   return http(`/programs/${payload.id}`,{

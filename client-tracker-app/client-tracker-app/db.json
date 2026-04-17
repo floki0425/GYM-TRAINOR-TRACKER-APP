@@ -157,19 +157,6 @@
       "date": "2026-04-22",
       "days": [
         {
-          "id": "",
-          "day": "12",
-          "tag": "cardio",
-          "exercises": [
-            {
-              "id": "",
-              "name": "ASDsddsds",
-              "sets": "12",
-              "reps": "ASD"
-            }
-          ]
-        },
-        {
           "id": "9fbe183e-c778-487f-a625-f526ff4785cd",
           "day": "asdsad",
           "tag": "lower",
@@ -183,6 +170,32 @@
             {
               "id": "3cdb6bfd-2ab3-4431-a6f6-636036f409ca",
               "name": "asdasd",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "id": "2917e4f2-5ffe-4a08-854a-df87f2b8eb1b",
+          "day": "wahgah",
+          "tag": "lower",
+          "exercises": [
+            {
+              "id": "8673c95b-0470-4bc0-a144-178800fd54a2",
+              "name": "asdsad",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "id": "d6cb33db-341d-4cd9-984f-f482e527fb7c",
+          "day": "1212",
+          "tag": "lower",
+          "exercises": [
+            {
+              "id": "4809f775-c89d-4843-a585-77ea2f3c4d91",
+              "name": "asdsad",
               "sets": "12",
               "reps": "12"
             }

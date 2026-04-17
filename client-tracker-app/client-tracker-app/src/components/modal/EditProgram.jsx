@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom';
-import { editProgram } from '../../api/programApi';
+import { deleteProgram, editProgram } from '../../api/programApi';
 
 const EditProgram = () => {
-  const {closeDrawer,selectedClientId,loadingProgram,selectedProgram} = useOutletContext()
+  const {closeDrawer,selectedClientId,loadingProgram,selectedProgram,navigate} = useOutletContext()
 
   const createEmptyForm =({
     id:"",
@@ -31,10 +31,15 @@ const EditProgram = () => {
   const [form, setForm] = useState(createEmptyForm);
 
 
-  console.log(form)
 
 
 
+ const removeDay = (dayId) => {
+  setForm((prev) => ({
+    ...prev,
+    days: prev.days.filter((day) => day.id !== dayId),
+  }));
+};
   
      
     
@@ -184,7 +189,7 @@ const addExercise = (dayId) => {
 
  useEffect(() => {
     if (!selectedProgram) {
-      setForm(createEmptyForm())
+      setForm(createEmptyForm)
       return
     }
 
@@ -299,7 +304,9 @@ const addExercise = (dayId) => {
                   <p className="mt-1 text-xs text-slate-500">Workout day details</p>
                 </div>
 
-                <button className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50">
+                <button 
+                onClick={()=>{removeDay(day.id)}}
+                className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50">
                   Remove Day
                 </button>
               </div>
