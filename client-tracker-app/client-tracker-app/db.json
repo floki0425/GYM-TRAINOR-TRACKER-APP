@@ -147,65 +147,43 @@
       "adherence": 0,
       "hunger": 0,
       "trainerNotes": "burat"
-    },
-    {
-      "clientId": "1",
-      "id": "241f",
-      "date": "2026-02-25",
-      "goal": "",
-      "weightKg": 23,
-      "waistIn": 23,
-      "bodyFatPct": 23,
-      "trainingDays": 5665,
-      "stepsAvg": 243,
-      "sleepAvg": 23,
-      "caloriesTarget": 23,
-      "adherence": 23,
-      "hunger": 53,
-      "trainerNotes": "waaw"
     }
   ],
   "programs": [
     {
-      "id": "fa22",
-      "title": "fsdffsdf",
+      "id": "d092",
+      "title": "waahahaha",
       "clientId": "1",
+      "date": "2026-04-22",
       "days": [
         {
-          "id": "day-1",
-          "day": "",
-          "tag": "",
+          "id": "",
+          "day": "12",
+          "tag": "cardio",
           "exercises": [
             {
-              "id": "ex-1",
-              "name": "asdsadsasdfsdfffsdfasdsa",
-              "sets": "1212",
-              "reps": "1212"
+              "id": "",
+              "name": "ASDsddsds",
+              "sets": "12",
+              "reps": "ASD"
             }
           ]
         },
         {
-          "id": "52368a9e-f2e5-459e-b493-3441b590c6b3",
-          "day": "CHEST DAY",
-          "tag": "upper",
-          "exercises": [
-            {
-              "id": "4a70a964-e8ac-4dee-b79d-4f62a67be67e",
-              "name": "sdasdsad",
-              "sets": "1212",
-              "reps": "1212"
-            }
-          ]
-        },
-        {
-          "id": "e5bd18e5-fd66-4d2e-a82b-5c380fd84f6c",
-          "day": "LEGDAY",
+          "id": "9fbe183e-c778-487f-a625-f526ff4785cd",
+          "day": "asdsad",
           "tag": "lower",
           "exercises": [
             {
-              "id": "dc7d5038-0bac-4bef-9e65-391021138d89",
-              "name": "asdsadasd",
-              "sets": "",
+              "id": "26c63f2f-ea8e-4ade-9fc0-5bc843cefdd7",
+              "name": "asdsad",
+              "sets": "12",
+              "reps": "12"
+            },
+            {
+              "id": "3cdb6bfd-2ab3-4431-a6f6-636036f409ca",
+              "name": "asdasd",
+              "sets": "12",
               "reps": "12"
             }
           ]
@@ -213,23 +191,63 @@
       ]
     },
     {
-      "id": "107f",
-      "title": "1212",
+      "id": "a02e",
+      "title": "BURATSKI",
       "clientId": "1",
+      "date": "2026-04-23",
       "days": [
         {
-          "id": "day-1",
-          "day": "",
-          "tag": "",
+          "id": "",
+          "day": "SADSAD",
+          "tag": "cardio",
           "exercises": [
             {
-              "id": "ex-1",
-              "name": "asdsadsa",
-              "sets": "21",
+              "id": "",
+              "name": "122222",
+              "sets": "12",
               "reps": "12"
             },
             {
-              "id": "d3798303-ff3d-4ad5-ad28-1fb28cb19d7b",
+              "id": "797404ed-84cf-498a-8315-f57d0cf00ff3",
+              "name": "12",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "id": "d03d4614-4674-48f3-8989-1b61909de07b",
+          "day": "12",
+          "tag": "cardio",
+          "exercises": [
+            {
+              "id": "a7fce110-3c78-4d1c-8496-26ec8b6610ab",
+              "name": "12",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "id": "e97dc3c6-5098-4900-9f11-a90e2be1ea8b",
+          "day": "ASDSAD",
+          "tag": "cardio",
+          "exercises": [
+            {
+              "id": "42e16636-aa95-4eb7-86ab-857d7230e7f7",
+              "name": "12",
+              "sets": "12",
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "id": "3aeffbb0-e876-42bd-a16a-a7aa0a8af32b",
+          "day": "ASDSAD",
+          "tag": "lower",
+          "exercises": [
+            {
+              "id": "8b8f3d29-77c4-48da-bcc7-5d623c6b2d37",
               "name": "12",
               "sets": "12",
               "reps": "12"
@@ -239,115 +257,96 @@
       ]
     },
     {
-      "id": "4ffd",
-      "title": "aswaas",
-      "clientId": "1",
+      "id": "1f16",
+      "title": "asdasd",
       "days": [
         {
-          "id": "",
-          "day": "asdsad",
-          "tag": "",
-          "exercises": [
-            {
-              "id": "",
-              "name": "asdsad",
-              "sets": "12",
-              "reps": "12"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "c362",
-      "title": "4-DAY Training Program",
-      "clientId": "1",
-      "days": [
-        {
-          "id": "",
-          "day": "CHEST / BACK DAY",
-          "tag": "upper",
-          "exercises": [
-            {
-              "id": "",
-              "name": "CHEST PRESS",
-              "sets": "4",
-              "reps": "12"
-            },
-            {
-              "id": "3391fd05-f02a-4100-8088-7125a01376b6",
-              "name": "DEADLIFT",
-              "sets": "4",
-              "reps": "12"
-            },
-            {
-              "id": "fbfb83e7-7313-413b-912a-41d5a0376139",
-              "name": "PULL UPS ",
-              "sets": "4",
-              "reps": "12"
-            }
-          ]
-        },
-        {
-          "id": "3866e5ed-a0c4-4cfa-9b80-6e9f562602a9",
-          "day": "LEG AND GLUTES",
+          "id": "aec7350c-fcde-4080-a086-b7ee6dc8a822",
+          "day": "asdsadsad",
           "tag": "lower",
           "exercises": [
             {
-              "id": "3f0151bf-746f-4932-91a4-0cb64c968343",
-              "name": "LEG PRESS",
-              "sets": "4",
-              "reps": "12"
-            },
-            {
-              "id": "5c2708c3-eb3d-4fa7-b04b-cff89675e43c",
-              "name": "RDL",
-              "sets": "4",
-              "reps": "12"
-            },
-            {
-              "id": "3b23e24c-b9fc-4fc3-b9dd-68a526333572",
-              "name": "SLDL",
-              "sets": "4",
-              "reps": "12"
+              "id": "ff50176d-d871-4b12-9a3f-9292af558658",
+              "name": "",
+              "sets": "",
+              "reps": ""
             }
           ]
         },
         {
-          "id": "6bb2dae5-9acc-4b4b-adba-979ef9c4a013",
-          "day": "ACTIVE REST",
-          "tag": "cardio",
-          "exercises": [
-            {
-              "id": "9b0b60c2-6bdf-470a-b9be-24a4073e2bda",
-              "name": "JUMPING JACS",
-              "sets": "1",
-              "reps": "50"
-            },
-            {
-              "id": "2d3af0f3-adf1-4251-81d2-012580377a37",
-              "name": "WALK",
-              "sets": "",
-              "reps": "10000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "81e0",
-      "title": "asdsadsad",
-      "clientId": "1",
-      "date": "2026-04-15",
-      "days": [
-        {
-          "id": "",
+          "id": "efed98e5-5b48-4de3-bfc9-32ac93ec8976",
           "day": "",
           "tag": "",
           "exercises": [
             {
+              "id": "570eb450-bce4-4b5f-a76c-cd558388c6ca",
+              "name": "",
+              "sets": "",
+              "reps": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0d63",
+      "title": "asdasd",
+      "days": [
+        {
+          "id": "aec7350c-fcde-4080-a086-b7ee6dc8a822",
+          "day": "asdsadsad",
+          "tag": "lower",
+          "exercises": [
+            {
+              "id": "ff50176d-d871-4b12-9a3f-9292af558658",
+              "name": "",
+              "sets": "",
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "id": "efed98e5-5b48-4de3-bfc9-32ac93ec8976",
+          "day": "",
+          "tag": "",
+          "exercises": [
+            {
+              "id": "570eb450-bce4-4b5f-a76c-cd558388c6ca",
+              "name": "",
+              "sets": "",
+              "reps": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f005",
+      "title": "asdsadsa",
+      "clientId": "1",
+      "date": "2026-04-30",
+      "days": [
+        {
+          "id": "",
+          "day": "asdsad",
+          "tag": "cardio",
+          "exercises": [
+            {
               "id": "",
-              "name": "asdsadsa",
+              "name": "asd121222",
+              "sets": "1212",
+              "reps": "121212"
+            }
+          ]
+        },
+        {
+          "id": "5d362d09-dcc9-49a4-8bab-a0e84e7649c5",
+          "day": "asdsad",
+          "tag": "lower",
+          "exercises": [
+            {
+              "id": "382e1f04-82bc-41db-9602-9a082824178b",
+              "name": "s12",
               "sets": "12",
               "reps": "12"
             }
@@ -422,6 +421,15 @@
           ]
         }
       ]
+    },
+    {
+      "id": "d384",
+      "clientId": "1",
+      "goal": "Bulking",
+      "calories": "12",
+      "protein": "12",
+      "carbs": "12",
+      "fat": "12"
     }
   ]
 }

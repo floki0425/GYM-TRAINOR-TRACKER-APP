@@ -10,10 +10,12 @@ const ProgramPanel = () => {
   const selectedProgramId = programId? programId : null;
   const navigate = useNavigate();
   const ignoreRef = useRef(false);
-  const {selectedClientId,addProgram} = useOutletContext()
-  const location = useLocation()
-  const showDetails = location.pathname.endsWith("/programdetails")
-  const clientPrograms = program.filter((p)=> p.clientId === selectedClientId)
+  const {selectedClientId,addProgram,closeDrawer} = useOutletContext();
+  const location = useLocation();
+  const showDetails = location.pathname.endsWith("/programdetails");
+   const showEdit = location.pathname.endsWith("/editprogram");
+  
+  const clientPrograms = program.filter((p)=> p.clientId === selectedClientId);
    const selectedProgram = 
      clientPrograms.find((p) => p.id === selectedProgramId)
 
@@ -30,24 +32,30 @@ const ProgramPanel = () => {
     navigate(`/clients/${selectedClientId}/workspace/programs/${id}/programdetails`);
   }
 
+  const editProgram = (id)=>{
+   navigate(`/clients/${selectedClientId}/workspace/programs/${id}/editprogram`)
+}
 
 
   const removeProgram = async(id)=>{
-    await deleteProgram(id)
+    try {
+     await deleteProgram(id)
     const remainingProgram = program.filter((p)=>p.id !== id)
     const nextProgram = remainingProgram[0];
     setProgram(remainingProgram);
 
     if (remainingProgram.length > 0) {
-      navigate(`/clients/${selectedClientId}/workspace/program/${nextProgram.id}`);
+      navigate(`/clients/${selectedClientId}/workspace/programs/${nextProgram.id}`);
     } else {
-      navigate(`/clients/${selectedClientId}/workspace/program`);
+      navigate(`/clients/${selectedClientId}/workspace/programs`);
+    }   
+    } catch (error) {
+       setError(error?.message ?? "Failed to delete Program") 
     }
+
+
+   
   } 
-
-
-console.log(program)
-
 
 
          const loadingProgram = useCallback(async() => {
@@ -79,7 +87,7 @@ console.log(program)
 
  
    if(loading) return <div>loading...</div>
-   if(error) return <div>Error</div>
+   if(error) return <div>{error}</div>
    if(!clientPrograms)
      return 
         <div className="space-y-5">
@@ -105,7 +113,7 @@ console.log(program)
 
 
   const outletContext = {
-    clientPrograms,navigate,loadingProgram,selectedProgram
+    clientPrograms,navigate,loadingProgram,selectedProgram,editProgram,closeDrawer
   }
 
   return (
@@ -113,7 +121,7 @@ console.log(program)
 
  
     <div className=" p-4 ">
-        {!showDetails && (
+        {!showDetails &&   (
            <div className="flex items-center justify-between gap-4 mb-4 p-6">
             
       <div className="mb-4 flex items-center justify-between gap-4 p-2">
@@ -138,7 +146,7 @@ console.log(program)
           </div> 
          )}
          
-     {!showDetails? ( <div className="space-y-5">
+     {!showDetails && !showEdit ?  ( <div className="space-y-5">
            {program.map((c) => {
           const isSelected = c.id === selectedProgramId;
 
@@ -166,7 +174,7 @@ console.log(program)
                   </div>
 
                   <p className="text-sm text-slate-400">
-                    Goal: {" "}
+                    Goal:
                     <span className="text-slate-600">{c.title}</span>
                     
                   </p>
@@ -194,6 +202,7 @@ console.log(program)
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
+                      editProgram(c.id);
                     }}
                     className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
                   >

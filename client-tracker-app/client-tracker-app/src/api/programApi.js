@@ -10,11 +10,18 @@ export async function getProgramId(clientId) {
 
 
 export async function deleteProgram(id) {
-  return http(`/programs?${id}`,{
+  return http(`/programs/${id}`,{
     method:"DELETE"
   });
 }
 
+
+export async function editProgram(payload) {
+  return http(`/programs/${payload.id}`,{
+    method: "PUT",
+    body: JSON.stringify(payload)
+  });
+}
 
 export async function createProgram(payload) {
   return http("/programs",{

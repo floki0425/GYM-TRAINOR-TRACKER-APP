@@ -17,7 +17,7 @@ const ProgramListContent = () => {
 const getTagStyles = (tag = '') => {
   switch (tag.toLowerCase()) {
     case 'cardio':
-      return 'border-orange-200 bg-orange-50 text-orange-700'
+      return 'border-orange-200 bg-orange-50 text-orangze-700'
     case 'upper':
       return 'border-blue-200 bg-blue-50 text-blue-700'
     case 'lower':

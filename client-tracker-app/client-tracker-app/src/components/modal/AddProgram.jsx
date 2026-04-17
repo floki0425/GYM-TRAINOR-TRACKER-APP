@@ -7,13 +7,14 @@ const AddProgram = () => {
 
   const [error,setError] = useState(false);
   const [form, setForm] = useState({
+  id:"",
    title: "",
+   date:"", 
    clientId: selectedClientId,
    days: [
     {
       id: "",
       day: "",
-      date:"",
       tag: "",
       exercises: [
         {
@@ -225,7 +226,7 @@ const addExercise = (dayId) => {
                 Date
               </label>
               <input
-                value={form.date}
+                value={form.datze}
                 onChange={(e) => {
                   updateField("date", e.target.value);
                 }}
