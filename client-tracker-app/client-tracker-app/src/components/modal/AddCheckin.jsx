@@ -6,12 +6,12 @@ import { useOutletContext } from 'react-router-dom'
 const AddCheckin = () => {
 const [error,setError] = useState({})
 const [form,setForm] = useState({
-        date:"2026-02-24", 
+        date:"", 
         goal:"",
         weightKg:"", 
         waistIn:"", 
         bodyFatPct:"", 
-        trainingDays:"0-7", 
+        trainingDays:"", 
         stepsAvg:"", 
         sleepAvg:"", 
         caloriesTarget:"", 

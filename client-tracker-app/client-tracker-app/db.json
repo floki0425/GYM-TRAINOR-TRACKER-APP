@@ -27,6 +27,13 @@
       "goalType": "LEAN BULK",
       "status": "PAUSED",
       "startDate": "2026-04-08"
+    },
+    {
+      "id": "4620",
+      "name": "asdsadasd",
+      "goalType": "LEAN BULK",
+      "status": "ACTIVE",
+      "startDate": "2026-04-22"
     }
   ],
   "checkins": [
@@ -119,7 +126,7 @@
     {
       "clientId": "1",
       "id": "c85e",
-      "date": "2026-02-24",
+      "date": "2026-03-28",
       "goal": "",
       "weightKg": 12,
       "waistIn": 12,
@@ -128,15 +135,15 @@
       "stepsAvg": 12,
       "sleepAvg": 12,
       "caloriesTarget": 12,
-      "adherence": 12,
+      "adherence": 10,
       "hunger": 55,
       "trainerNotes": "wewwew"
     },
     {
       "clientId": "1",
       "id": "1e21",
-      "date": "2026-02-25",
-      "goal": "",
+      "date": "2026-03-30",
+      "goal": "ASD",
       "weightKg": 123,
       "waistIn": 123,
       "bodyFatPct": 123,
@@ -144,9 +151,25 @@
       "stepsAvg": 123,
       "sleepAvg": 123,
       "caloriesTarget": 123,
-      "adherence": 0,
+      "adherence": 150,
       "hunger": 0,
       "trainerNotes": "burat"
+    },
+    {
+      "clientId": "181f",
+      "id": "91c5",
+      "date": "2026-04-15",
+      "goal": "CUTTING",
+      "weightKg": 112,
+      "waistIn": 12,
+      "bodyFatPct": 12,
+      "trainingDays": 2,
+      "stepsAvg": 10000,
+      "sleepAvg": 7,
+      "caloriesTarget": 12,
+      "adherence": 3,
+      "hunger": 4,
+      "trainerNotes": " buratburatburatburatburatburatburatburatburat"
     }
   ],
   "programs": [

@@ -1,14 +1,73 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useOutletContext } from "react-router-dom";
+import { getCheckinByClientId } from "../api/checkinApi";
 
 
 
 const Workspace = () => {
+  const [checkin,setCheckin] = useState([])
+  const ignoreRef = useRef(false);
+  const [checkinLoading,setCheckinLoading] = useState(false)
+  const [checkinError,setCheckinError] = useState(null);
+  const {selectedClient,
+    selectedClientId,
+    loading, 
+    openDrawer,
+    closeDrawer,
+    addMealplan,
+    editCheckin,
+    addProgram
+  } = useOutletContext()
 
-  const {selectedClient,selectedClientId,loading, openDrawer,closeDrawer,addMealplan,editCheckin,addProgram} = useOutletContext()
-
+const sortedCheckin = [...checkin].sort(
+  (a, b) => new Date(b.date) - new Date(a.date)
+)
+  
+  const loadCheckin = useCallback(async () => {
+      try {
+        setCheckinLoading(true);
+        setCheckinError(null);
+        const data = await getCheckinByClientId(selectedClientId);
+  
+        if(!ignoreRef.current)  setCheckin(data);
+      } catch (error) {
+        if(!ignoreRef.current)  setCheckinError(error?.message ?? "failed to load");
+      } finally{
+        if(!ignoreRef.current)  setCheckinLoading(false); 
+      }
+  
+  
+  
+    },[selectedClientId])
+  
+  
+  
+  useEffect(()=>{
+    ignoreRef.current = false
+    loadCheckin();
+  
+    return () =>{
+      ignoreRef.current = true;
+    }
+  },[loadCheckin])
 
  const outletContext={
-  selectedClient,selectedClientId,loading,closeDrawer,addMealplan,editCheckin,addProgram
+  selectedClient,
+  selectedClientId,
+  loading,
+  closeDrawer,
+  addMealplan,
+  editCheckin,
+  addProgram, 
+  checkin,
+  checkinLoading,
+  checkinError,
+  setCheckin,
+  setCheckinError,
+  loadCheckin,
+  sortedCheckin
+  
+ 
  }
 
  if(!selectedClient) return   <div className="workspace__empty mx-auto w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">

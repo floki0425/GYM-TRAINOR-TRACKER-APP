@@ -1,17 +1,25 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { deleteCheckin,  getCheckinByClientId } from '../../api/checkinApi'
+import React from 'react'
+import { deleteCheckin} from '../../api/checkinApi'
 import { Outlet, useLocation, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 
 const CheckinsPanel = () => {
-const [checkin,setCheckin] = useState([])
-const [loading,setLoading] = useState(false)
-const [error,setError] = useState(null);
 const {checkinId} = useParams()
 const selectedCheckinId = checkinId ? checkinId : null;
 const navigate = useNavigate();
 const location = useLocation();
-const ignoreRef = useRef(false);
-const {selectedClientId,selectedClient,closeDrawer} = useOutletContext();
+
+const {selectedClientId,
+  selectedClient,
+  closeDrawer,
+  checkin,
+  checkinLoading,
+  checkinError,
+  setCheckin,
+  setCheckinError,
+  loadCheckin,
+  sortedCheckin
+} = useOutletContext();
+
 const selectedCheckin = checkin.find((f)=>String(f.id) === String(selectedCheckinId));
 const checkInClient = checkin.find((f)=>f.clientId === selectedClientId);
 const showDetails = location.pathname.endsWith("/details");
@@ -50,7 +58,7 @@ const removeCheckin = async (id)=>{
       navigate(`/clients/${selectedClientId}/workspace/checkins`);
     }
  } catch (error) {
-    setError(error?.message ?? "Failed to delete checkin") 
+    setCheckinError(error?.message ?? "Failed to delete checkin") 
  }
 
 }
@@ -61,36 +69,9 @@ const removeCheckin = async (id)=>{
 
 
 
-const loadCheckin = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const data = await getCheckinByClientId(selectedClientId);
 
-      if(!ignoreRef.current)  setCheckin(data);
-    } catch (error) {
-      if(!ignoreRef.current)  setError(error?.message ?? "failed to load");
-    } finally{
-      if(!ignoreRef.current)  setLoading(false); 
-    }
-
-
-
-  },[selectedClientId])
-
-
-
-useEffect(()=>{
-  ignoreRef.current = false
-  loadCheckin();
-
-  return () =>{
-    ignoreRef.current = true;
-  }
-},[loadCheckin])
-
-if(loading)return <div>loading..</div>
-if(error) return <p>{error}</p>
+if(checkinLoading)return <div>loading..</div>
+if(checkinError) return <p>{checkinError}</p>
 if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
       <h3 className="text-lg font-semibold text-slate-900">No check-ins yet</h3>
       <p className="mt-2 text-sm text-slate-600">
@@ -166,7 +147,7 @@ if (!checkInClient) return  <div className="rounded-2xl border border-slate-200 
 
       {/* List */}
       <div className="space-y-4">
-        {checkin.map((c) => {
+        {sortedCheckin.map((c) => {
           const isSelected = c.id === selectedCheckinId;
 
           return (
