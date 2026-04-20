@@ -16,6 +16,13 @@ export async function createMealplan(payload) {
   });
 }
 
+export async function editMealplan(payload) {
+  return http(`/mealplan/${payload.id}`,{
+    method: "PUT",
+    body: JSON.stringify(payload)
+  });
+}
+
 export async function deleteMealplan(id){
   return http(`/mealplan/${id}`,{
     method: "DELETE"

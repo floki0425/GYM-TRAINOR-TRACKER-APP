@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { deleteMealplan,  getMealplanByClientId } from '../../api/mealPlanApi';
-import { Outlet, useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 const MealPlanPanel = () => {
   const [mealplan,setMealplan] = useState([]);
@@ -12,8 +12,15 @@ const MealPlanPanel = () => {
   const ignoreRef = useRef(false);
 const {selectedClientId,addMealplan,closeDrawer} = useOutletContext();
 
+  const clientMealplan = mealplan.filter((p)=> p.clientId === selectedClientId);
+   const selectedMealplan = 
+    clientMealplan.find((p) => p.id === selectedMealplanId)
+
+const location = useLocation();
 const clientMealPlan = mealplan.find((plan)=> plan.clientId === selectedClientId)
-const showDetails = location.pathname.endsWith("mealdetails")
+const showDetails = location.pathname.endsWith("/mealdetails")
+const showEdit = location.pathname.endsWith("/editmealplan")
+
 
 
 const checkinList = (id)=>{
@@ -23,7 +30,10 @@ const checkinList = (id)=>{
 const openDetails = (id)=>{
   navigate(`/clients/${selectedClientId}/workspace/meal-plan/${id}/mealdetails`)
 }
-   
+
+  const editMeaplan = (id)=>{
+   navigate(`/clients/${selectedClientId}/workspace/meal-plan/${id}/editmealplan`)
+}
  
   
   
@@ -100,7 +110,7 @@ if(!selectedClientId) return
         </div>
 
  const outletContext = {
-  selectedClientId,clientMealPlan,loadMealplan,closeDrawer
+  selectedClientId,clientMealPlan,loadMealplan,closeDrawer,selectedMealplan
 }
 
 
@@ -124,7 +134,7 @@ if(!selectedClientId) return
     </div>
 
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      {!showDetails? (
+      {!showDetails && !showEdit ? (
         <div className="space-y-4">
           {mealplan.map((c) => {
              const isSelected = c.id === selectedMealplanId;
@@ -167,7 +177,10 @@ if(!selectedClientId) return
                   </button>
                     <button
                       type="button"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e) =>{
+                        e.stopPropagation();
+                        editMeaplan(c.id);
+                      }}
                       className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
                     >
                       Edit

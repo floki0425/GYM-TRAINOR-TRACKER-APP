@@ -370,79 +370,55 @@
   ],
   "mealplan": [
     {
-      "id": "1235",
+      "id": "d28f",
       "clientId": "1",
-      "date": "2026-02-04",
-      "goal": "Bulking",
-      "calories": "3000 kcal",
-      "protein": "160g",
-      "carbs": "240g",
-      "fat": "55g",
+      "date": "2026-04-13",
+      "goal": "CUTTING",
+      "calories": 12,
+      "protein": 12,
+      "carbs": 12,
+      "fat": 12,
       "meals": [
         {
-          "name": "Breakfast",
+          "id": "6f6cfbfd-c175-4c4d-987d-11079265113b",
+          "name": "WEW",
+          "type": "breakfast",
           "items": [
-            "eggtmeal",
-            "Eggs"
+            {
+              "id": "88a4c7bc-f93d-4d8b-98e7-6d312abccc3e",
+              "name": "12",
+              "grams": 12
+            },
+            {
+              "id": "1eb20fcf-91a4-4d8b-85a9-c9bc3d7856de",
+              "name": "12",
+              "grams": 12
+            },
+            {
+              "id": "d8944a5a-7c4d-4165-8da3-877a5e518953",
+              "name": "12",
+              "grams": 7
+            }
           ]
         },
         {
-          "name": "Lunch",
+          "id": "1af12ab4-b42f-4733-9ece-2c448f32fa95",
+          "name": "asdsadsa",
+          "type": "breakfast",
           "items": [
-            "Chicken beef",
-            "Rice"
-          ]
-        },
-        {
-          "name": "Dinner",
-          "items": [
-            "Fish",
-            "Vegetables"
+            {
+              "id": "556fe38b-d80a-4167-8e4e-3ebda1122dd6",
+              "name": "1223333",
+              "grams": 12
+            },
+            {
+              "id": "eef97772-d6ea-4fec-bf93-9f8e6ffdd985",
+              "name": "12",
+              "grams": 12
+            }
           ]
         }
       ]
-    },
-    {
-      "id": "1236",
-      "clientId": "1",
-      "date": "2026-02-04",
-      "goal": "Bulking",
-      "calories": "3000 kcal",
-      "protein": "160g",
-      "carbs": "240g",
-      "fat": "55g",
-      "meals": [
-        {
-          "name": "Breakfast",
-          "items": [
-            "eggtmeal",
-            "Eggs"
-          ]
-        },
-        {
-          "name": "Lunch",
-          "items": [
-            "Chicken beef",
-            "Rice"
-          ]
-        },
-        {
-          "name": "Dinner",
-          "items": [
-            "Fish",
-            "Vegetables"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "d384",
-      "clientId": "1",
-      "goal": "Bulking",
-      "calories": "12",
-      "protein": "12",
-      "carbs": "12",
-      "fat": "12"
     }
   ]
 }

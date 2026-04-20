@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
-import { createMealplan } from '../../api/mealplanApi'
+import { editMealplan } from '../../api/mealplanApi'
 
-const AddMealplan = () => {
-  const { closeDrawer, selectedClientId, loadingMealplan } = useOutletContext()
+const EditMealplan = () => {
+  const {
+    closeDrawer,
+    selectedClientId,
+    loadMealplan,
+    selectedMealplan,
+  } = useOutletContext()
 
   const createEmptyForm = () => ({
     id: '',
@@ -33,6 +38,13 @@ const AddMealplan = () => {
   const [error, setError] = useState({})
   const [form, setForm] = useState(createEmptyForm)
 
+  const removeMeal = (mealId) => {
+    setForm((prev) => ({
+      ...prev,
+      meals: prev.meals.filter((meal) => meal.id !== mealId),
+    }))
+  }
+
   const addMeal = () => {
     setForm((prev) => ({
       ...prev,
@@ -54,13 +66,6 @@ const AddMealplan = () => {
     }))
   }
 
-  const removeMeal = (mealId) => {
-    setForm((prev) => ({
-      ...prev,
-      meals: prev.meals.filter((meal) => meal.id !== mealId),
-    }))
-  }
-
   const addItem = (mealId) => {
     setForm((prev) => ({
       ...prev,
@@ -76,20 +81,6 @@ const AddMealplan = () => {
                   grams: '',
                 },
               ],
-            }
-          : meal
-      ),
-    }))
-  }
-
-  const removeItem = (mealId, itemId) => {
-    setForm((prev) => ({
-      ...prev,
-      meals: prev.meals.map((meal) =>
-        meal.id === mealId
-          ? {
-              ...meal,
-              items: meal.items.filter((item) => item.id !== itemId),
             }
           : meal
       ),
@@ -138,11 +129,10 @@ const AddMealplan = () => {
     }))
   }
 
-  const saveMealplan = async () => {
+  const saveEdit = async (id) => {
     const nextErrors = {}
 
     if (!form.goal) nextErrors.goal = 'Goal is required'
-    if (!form.date) nextErrors.date = 'Date is required'
 
     if (Object.keys(nextErrors).length > 0) {
       setError(nextErrors)
@@ -150,6 +140,7 @@ const AddMealplan = () => {
     }
 
     const payload = {
+      id,
       clientId: form.clientId,
       date: form.date,
       goal: form.goal,
@@ -170,14 +161,44 @@ const AddMealplan = () => {
     }
 
     try {
-      await createMealplan(payload)
+      await editMealplan(payload)
       setError({})
       closeDrawer()
-      await loadingMealplan()
+      await loadMealplan()
     } catch (error) {
-      setError({ _form: error?.message ?? 'Failed to save meal plan' })
+      setError({ _form: error?.message ?? 'Failed to save mealplan' })
     }
   }
+
+  useEffect(() => {
+    if (!selectedMealplan) {
+      setForm(createEmptyForm())
+      return
+    }
+
+    setForm({
+      id: selectedMealplan.id ?? '',
+      clientId: selectedMealplan.clientId ?? selectedClientId,
+      date: selectedMealplan.date ?? '',
+      goal: selectedMealplan.goal ?? '',
+      calories: selectedMealplan.calories ?? '',
+      protein: selectedMealplan.protein ?? '',
+      carbs: selectedMealplan.carbs ?? '',
+      fat: selectedMealplan.fat ?? '',
+      meals:
+        selectedMealplan.meals?.map((meal) => ({
+          id: meal.id ?? crypto.randomUUID(),
+          name: meal.name ?? '',
+          type: meal.type ?? '',
+          items:
+            meal.items?.map((item) => ({
+              id: item.id ?? crypto.randomUUID(),
+              name: item.name ?? '',
+              grams: item.grams ?? '',
+            })) ?? [],
+        })) ?? [],
+    })
+  }, [selectedMealplan, selectedClientId])
 
   return (
     <div>
@@ -195,10 +216,10 @@ const AddMealplan = () => {
                   Meal Plan
                 </p>
                 <h2 className="mt-1 text-xl font-semibold text-slate-900">
-                  Add Meal Plan
+                  Edit Meal Plan
                 </h2>
                 <p className="mt-1 text-sm text-slate-600">
-                  Create a meal plan with meals, food items, and macro targets.
+                  Edit meals, food items, and macro targets.
                 </p>
               </div>
 
@@ -222,11 +243,6 @@ const AddMealplan = () => {
                 {error.goal && (
                   <p className="text-sm font-semibold text-red-500">
                     {error.goal}
-                  </p>
-                )}
-                {error.date && (
-                  <p className="text-sm font-semibold text-red-500">
-                    {error.date}
                   </p>
                 )}
                 {error._form && (
@@ -346,7 +362,9 @@ const AddMealplan = () => {
                     </label>
                     <input
                       value={meal.name}
-                      onChange={(e) => updateMeal(meal.id, 'name', e.target.value)}
+                      onChange={(e) =>
+                        updateMeal(meal.id, 'name', e.target.value)
+                      }
                       type="text"
                       placeholder="Breakfast"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
@@ -359,7 +377,9 @@ const AddMealplan = () => {
                     </label>
                     <select
                       value={meal.type}
-                      onChange={(e) => updateMeal(meal.id, 'type', e.target.value)}
+                      onChange={(e) =>
+                        updateMeal(meal.id, 'type', e.target.value)
+                      }
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                     >
                       <option value="">Select type</option>
@@ -394,15 +414,8 @@ const AddMealplan = () => {
                           }
                           type="number"
                           placeholder="Grams"
-                          className="sm:col-span-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
+                          className="sm:col-span-4 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900"
                         />
-                        <button
-                          type="button"
-                          onClick={() => removeItem(meal.id, item.id)}
-                          className="sm:col-span-1 rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
-                        >
-                          ×
-                        </button>
                       </div>
                     </div>
                   ))}
@@ -437,7 +450,7 @@ const AddMealplan = () => {
               </button>
 
               <button
-                onClick={saveMealplan}
+                onClick={() => saveEdit(form.id)}
                 className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 active:bg-teal-800"
               >
                 Save Meal Plan
@@ -450,4 +463,4 @@ const AddMealplan = () => {
   )
 }
 
-export default AddMealplan
+export default EditMealplan

@@ -16,6 +16,7 @@ import ProgramListContent from "./components/panelDetails/ProgramListContent";
 import EditCheckin from "./components/modal/EditCheckin";
 import AddProgram from "./components/modal/AddProgram";
 import EditProgram from "./components/modal/EditProgram";
+import EditMealplan from "./components/modal/EditMealplan";
 
 
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="meal-plan" element={<MealPlanPanel />} >
              <Route index element={null} />
              <Route path=":mealplanId" element={null} />
+             <Route path=":mealplanId/editmealplan" element={<EditMealplan/>} />
              <Route path=":mealplanId/mealdetails" element={<MealplanListContent/>} />
           </Route>
           <Route path="notes" element={<NotesPanel />} />

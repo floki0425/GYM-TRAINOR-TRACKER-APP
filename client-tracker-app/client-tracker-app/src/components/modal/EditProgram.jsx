@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom';
-import { deleteProgram, editProgram } from '../../api/programApi';
+import { editProgram } from '../../api/programApi';
 
 const EditProgram = () => {
-  const {closeDrawer,selectedClientId,loadingProgram,selectedProgram,navigate} = useOutletContext()
+  const {closeDrawer,selectedClientId,loadingProgram,selectedProgram} = useOutletContext()
 
   const createEmptyForm =({
     id:"",
